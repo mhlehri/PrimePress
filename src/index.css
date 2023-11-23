@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body {
+  font-family: "barlow-semi-condensed";
+} */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+body,
+p,
+a,
+div,
+button {
+  font-family: "Inconsolata", monospace;
+}
