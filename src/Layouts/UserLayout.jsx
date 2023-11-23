@@ -6,7 +6,7 @@ const UserLayout = () => {
   return (
     <div>
       <NavbarWithMegaMenu></NavbarWithMegaMenu>
-      <div className="min-h-[calc(100vh-65px)] pt-28  container mx-auto">
+      <div className="min-h-[calc(100vh-65px)]  container mx-auto">
         <Outlet></Outlet>
       </div>
       <Footer></Footer>

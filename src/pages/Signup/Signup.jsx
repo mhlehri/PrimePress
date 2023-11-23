@@ -139,9 +139,7 @@ export function SignUp() {
     <div className="mx-3 ">
       <div className="mx-auto max-w-lg my-20 px-6 py-5 dark:bg-blue-gray-100 rounded-lg">
         <Card color="transparent" shadow={false} className="text-inherit">
-          <h4 className="text-3xl font-bold" color="teal">
-            Register
-          </h4>
+          <h4 className="text-3xl font-bold">Register</h4>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mt-2 lg:mt-6 mb-2 max-w-screen-lg "
@@ -153,7 +151,6 @@ export function SignUp() {
                   size="lg"
                   name="name"
                   label="Name"
-                  color="teal"
                   variant="standard"
                   {...register("name", {
                     required: "Name is required field!",
@@ -173,8 +170,8 @@ export function SignUp() {
                   name="photo"
                   {...register("photo", { required: true })}
                   label="Photo URL"
-                  className="file:bg-teal-500 file:cursor-pointer cursor-pointer file:text-white file:pb-3 file:pt-1 file:px-6 file:border-0 "
-                  color="teal"
+                  className="file:bg-black file:cursor-pointer cursor-pointer file:text-white file:pb-3 file:pt-1 file:px-6 file:border-0 "
+                  color="black"
                   variant="standard"
                 />
                 {errors.photo && (
@@ -196,7 +193,7 @@ export function SignUp() {
                     },
                   })}
                   label="Email"
-                  color="teal"
+                  color="black"
                   variant="standard"
                 />
                 {errors.email && (
@@ -223,7 +220,7 @@ export function SignUp() {
                     },
                   })}
                   label="Password"
-                  color="teal"
+                  color="black"
                   variant="standard"
                 />
                 {errors.password && (
@@ -237,13 +234,13 @@ export function SignUp() {
             <Btn text="Register"></Btn>
             <p className="mt-4 text-center font-normal">
               Already have an account?{" "}
-              <Link to="/login" className="font-medium underline text-teal-500">
+              <Link to="/login" className="font-semibold underline text-black">
                 Login
               </Link>
             </p>
           </form>
           <div className="w-full mx-auto text-center">
-            <hr className="border-t-2 border-teal-800 w-2/3 mx-auto py-2" />
+            <hr className="border-t-2 border-black w-2/3 mx-auto py-2" />
 
             <Button
               onClick={() =>
@@ -264,7 +261,7 @@ export function SignUp() {
                   .catch()
               }
               type="submit"
-              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-teal-600 hover:text-white hover:bg-teal-800 border-teal-800 border-2 hover:scale-105  delay-50 ease-linear`}
+              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-black hover:text-white hover:bg-black border-black rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
             >
               login with google
             </Button>

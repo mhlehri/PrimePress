@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear();
 
 export function Footer() {
   return (
-    <div className="bg-teal-100">
+    <div className="">
       <footer className="relative container mx-auto text-inherit">
         <div className="mx-auto w-full px-8">
           <div className="flex w-full flex-col items-center justify-center border-t border-inherit py-4 md:flex-row md:justify-between">

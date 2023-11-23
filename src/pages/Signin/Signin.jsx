@@ -87,7 +87,7 @@ export function SignIn() {
                     },
                   })}
                   label="Email"
-                  color="teal"
+                  color="black"
                   variant="standard"
                 />
                 {errors.email && (
@@ -105,7 +105,7 @@ export function SignIn() {
                     required: "password is required!",
                   })}
                   label="Password"
-                  color="teal"
+                  color="black"
                   variant="standard"
                 />
                 {errors.password && (
@@ -118,16 +118,13 @@ export function SignIn() {
             <Btn text="Log In"></Btn>
             <p className="mt-4 text-center font-normal">
               Don't have an account?{" "}
-              <Link
-                to="/signUp"
-                className="underline font-medium text-teal-500"
-              >
+              <Link to="/signUp" className="underline font-semibold text-black">
                 Register
               </Link>
             </p>
           </form>
           <div className="w-full mx-auto text-center">
-            <hr className="border-t-2 border-teal-800 w-2/3 mx-auto py-2" />
+            <hr className="border-t-2 border-black w-2/3 mx-auto py-2" />
             <Button
               onClick={() =>
                 signG()
@@ -147,7 +144,7 @@ export function SignIn() {
                   .catch()
               }
               type="submit"
-              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center   bg-transparent text-teal-600 hover:text-white hover:bg-teal-800 border-teal-800 border-2 hover:scale-105  delay-50 ease-linear`}
+              className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 hover:scale-105  delay-50 ease-linear`}
             >
               login with google
             </Button>

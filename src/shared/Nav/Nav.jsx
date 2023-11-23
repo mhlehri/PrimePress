@@ -90,7 +90,7 @@ function NavListMenu() {
         ) : (
           ""
         )}
-        <MenuList className="hidden bg-teal-100 text-teal-600 max-w-screen-xl rounded-xl lg:block">
+        <MenuList className="hidden bg-black max-w-screen-xl rounded-xl lg:block">
           <ul className="outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>
@@ -103,18 +103,14 @@ function NavListMenu() {
 
 function NavList() {
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row  text-teal-600 items-center xl:space-x-1   2xl:space-x-2  text-xs xl:text-sm 2xl:text-base text-inherit">
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row  te items-center xl:space-x-1   2xl:space-x-2  text-xs xl:text-sm 2xl:text-base text-inherit">
       <NavLink
         to="/"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center   py-1 px-1 hover:bg-teal-300 hover:text-white rounded-lg">
+        <a className="flex items-center   py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
           Home
         </a>
       </NavLink>
@@ -122,42 +118,30 @@ function NavList() {
       <NavLink
         to="/services"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center  py-1 px-1 hover:bg-teal-300 hover:text-white rounded-lg">
+        <a className="flex items-center  py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
           Add Articles
         </a>
       </NavLink>
       <NavLink
         to="/services"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center hover:bg-teal-300 hover:text-white rounded-lg py-1 px-1">
+        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
           All Articles
         </a>
       </NavLink>
       <NavLink
         to="/services"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center hover:bg-teal-300 hover:text-white rounded-lg py-1 px-1">
+        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
           Subscription
         </a>
       </NavLink>
@@ -165,28 +149,20 @@ function NavList() {
       <NavLink
         to="/services"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center hover:bg-teal-300 hover:text-white rounded-lg py-1 px-1">
+        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
           My Articles
         </a>
       </NavLink>
       <NavLink
         to="/services"
         className={({ isActive, isPending }) =>
-          isPending
-            ? "pending"
-            : isActive
-            ? "overline border-teal-800 font-bold"
-            : ""
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
       >
-        <a className="flex items-center hover:bg-teal-300 hover:text-white rounded-lg py-1 px-1">
+        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
           Premium Articles
         </a>
       </NavLink>
@@ -210,7 +186,7 @@ export function NavbarWithMegaMenu() {
         <Link className="w-full" to={`/profile/${user?.displayName}`}>
           <Button
             type="button"
-            className="w-full bg-teal-600 flex gap-2 items-center hover:bg-teal-300"
+            className="w-full  flex gap-2 items-center hover:bg-gray-800"
           >
             {`${user?.displayName}`}
           </Button>
@@ -222,7 +198,7 @@ export function NavbarWithMegaMenu() {
       label: (
         <Button
           type="button"
-          className="w-full bg-teal-600 flex gap-2 items-center hover:bg-teal-300"
+          className="w-full  flex gap-2 items-center hover:bg-gray-800"
           onClick={() =>
             signO()
               .then(() => {
@@ -250,7 +226,7 @@ export function NavbarWithMegaMenu() {
 
   const closeMenu = () => setIsMenuOpen(false);
   return (
-    <Navbar className=" text-teal-600 max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-4 ">
+    <Navbar className=" text-black max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-4 ">
       <div className="mx-auto container  shadow-none  border-none">
         <div className="flex items-center justify-between">
           <Link
@@ -290,13 +266,13 @@ export function NavbarWithMegaMenu() {
                     />
                   </Button>
                 </MenuHandler>
-                <MenuList className="p-0 bg-teal-600">
+                <MenuList className="p-0 ">
                   {profileMenuItems.map(({ label }) => {
                     return (
                       <div
                         key={label}
                         onClick={closeMenu}
-                        className={`flex items-center hover:bg-teal-300 hover:text-white rounded-lg`}
+                        className={`flex items-center hover:bg-gray-800 hover:text-white rounded-lg`}
                       >
                         {label}
                       </div>
@@ -351,7 +327,7 @@ export function NavbarWithMegaMenu() {
                         })
                         .catch((err) => console.log(err))
                     }
-                    className="bg-teal-800"
+                    className="bg-black"
                     size="sm"
                     fullWidth
                   >
