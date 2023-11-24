@@ -7,8 +7,8 @@ import { Button } from "@material-tailwind/react";
 const Carousels = () => {
   return (
     <>
-      <p className="bg-gray-800 py-4 text-sm md:text-base lg:text-2xl text-white text-center">
-        Trending Articles 🔥
+      <p className="bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] py-2 text-sm md:text-base lg:text-xl text-black text-center">
+        Trending Articles🔥
       </p>
       <Carousel
         autoPlay={true}
@@ -65,7 +65,7 @@ const Carousels = () => {
             className="object-cover h-full object-bottom"
             src="https://images.unsplash.com/photo-1508921340878-ba53e1f016ec?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           />
-          <div className="space-y-3 absolute p-16 lg:pb-36 lg:pl-20  z-50 text-white bottom-0 text-left   from-transparent  bg-gradient-to-b to-black left-1/2 -translate-x-1/2 w-full">
+          <div className="space-y-3 absolute p-16 lg:pb-36 lg:pl-20 z-50 text-white bottom-0 text-left from-transparent bg-gradient-to-b to-black left-1/2 -translate-x-1/2 w-full">
             <h1 className="text-3xl font-bold">Title</h1>
             <p className="w-2/3 opacity-80 text-xs md:text-sm lg:text-base">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -76,7 +76,7 @@ const Carousels = () => {
               size="sm"
               variant="text"
               color="white"
-              className=" border-b-2 rounded-none hover:bg-white hover:text-black delay-100 ease-linear duration-300"
+              className=" border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] mx-auto border-[#58bfff]  text-[#58bfff] rounded-none  hover:text-white delay-100 ease-linear duration-200"
             >
               see more
             </Button>

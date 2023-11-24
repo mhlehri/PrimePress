@@ -146,12 +146,46 @@ export function SignUp() {
           >
             <div className="mb-4 flex flex-col gap-6 ">
               <div>
+                <div className="mx-auto w-fit">
+                  <label htmlFor="files">
+                    <p className="font-bold text-center my-2">Upload Profile</p>
+                    <figure className="bg-black p-2 rounded-full w-fit  mx-auto cursor-pointer">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="50"
+                        height="50"
+                        fill="white"
+                        viewBox="0 0 20 17"
+                      >
+                        <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+                      </svg>
+                    </figure>
+                  </label>
+                  <input
+                    id="files"
+                    type="file"
+                    size="lg"
+                    name="photo"
+                    {...register("photo", { required: true })}
+                    label="Upload your photo"
+                    className="file:hidden  overflow-hidden w-28 underline  cursor-pointer "
+                  />
+                </div>
+                {errors.photo && (
+                  <p className="text-red-800 text-xs text-center">
+                    Photo is required field!
+                  </p>
+                )}
+              </div>
+
+              <div>
                 <Input
                   type="text"
                   size="lg"
                   name="name"
                   label="Name"
                   variant="standard"
+                  color="black"
                   {...register("name", {
                     required: "Name is required field!",
                   })}
@@ -163,23 +197,6 @@ export function SignUp() {
                 )}
               </div>
 
-              <div>
-                <Input
-                  type="file"
-                  size="lg"
-                  name="photo"
-                  {...register("photo", { required: true })}
-                  label="Photo URL"
-                  className="file:bg-black file:cursor-pointer cursor-pointer file:text-white file:pb-3 file:pt-1 file:px-6 file:border-0 "
-                  color="black"
-                  variant="standard"
-                />
-                {errors.photo && (
-                  <span className="text-red-800 text-xs">
-                    Photo is required field!
-                  </span>
-                )}
-              </div>
               <div>
                 <Input
                   type="email"

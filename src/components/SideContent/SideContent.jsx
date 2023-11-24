@@ -23,8 +23,7 @@ const SideContent = () => {
           </p>
         </div>
       </a>
-      <hr />
-      <br />
+
       <a
         href="#"
         className="flex flex-col items-center  rounded-lg md:max-w-xl "

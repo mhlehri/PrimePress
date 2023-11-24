@@ -1,48 +1,93 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/joy/Button";
+import Card from "@mui/joy/Card";
+import CardActions from "@mui/joy/CardActions";
+import Chip from "@mui/joy/Chip";
+import Divider from "@mui/joy/Divider";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
+import Check from "@mui/icons-material/Check";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        Word of the Day
-      </Typography>
-      <Typography variant="h5" component="div">
-        be{bull}nev{bull}o{bull}lent
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        adjective
-      </Typography>
-      <Typography variant="body2">
-        well meaning and kindly.
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </React.Fragment>
-);
-
-export default function PriceCard() {
+export default function Cards({ colors, btn, price, duration }) {
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card}</Card>
-    </Box>
+    <div>
+      <Card size="lg" variant="soft">
+        <Chip size="sm" variant="soft" sx={{ color: `${colors}` }}>
+          {btn}
+        </Chip>
+        <Typography sx={{ fontFamily: `"Inconsolata", monospace` }} level="h2">
+          Professional
+        </Typography>
+        <Divider inset="none" />
+        <List size="sm" sx={{ mx: "calc(-1 * var(--ListItem-paddingX))" }}>
+          <ListItem>
+            <ListItemDecorator>
+              <Check />
+            </ListItemDecorator>
+            Virtual Credit Cards
+          </ListItem>
+          <ListItem>
+            <ListItemDecorator>
+              <Check />
+            </ListItemDecorator>
+            Financial Analytics
+          </ListItem>
+          <ListItem>
+            <ListItemDecorator>
+              <Check />
+            </ListItemDecorator>
+            Checking Account
+          </ListItem>
+          <ListItem>
+            <ListItemDecorator>
+              <Check />
+            </ListItemDecorator>
+            API Integration
+          </ListItem>
+        </List>
+        <Divider inset="none" />
+        <CardActions>
+          <Typography
+            sx={{ fontFamily: `"Inconsolata", monospace`, mr: "auto" }}
+            level="title-lg"
+          >
+            ${price}
+            <Typography
+              sx={{ fontFamily: `"Inconsolata", monospace` }}
+              fontSize="sm"
+              textColor="text.tertiary"
+            >
+              /{duration}
+            </Typography>
+          </Typography>
+          <Button
+            variant="soft"
+            sx={{
+              borderBottom: "#58bfff solid",
+              borderRadius: 0,
+              color: "black",
+              "&:hover": {
+                backgroundImage:
+                  "linear-gradient(to top right, #58bfff , #01bea5)",
+                color: "white",
+              },
+            }}
+            endDecorator={<KeyboardArrowRight />}
+          >
+            Start now
+          </Button>
+        </CardActions>
+      </Card>
+      {/* <Button
+        size="sm"
+        variant="text"
+        colors="white"
+        className=" border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] mx-auto border-[#58bfff] hover:border-none text-black rounded-none  hover:text-white delay-100 ease-linear duration-200"
+      >
+        Get it Now
+      </Button> */}
+    </div>
   );
 }

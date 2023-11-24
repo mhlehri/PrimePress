@@ -116,7 +116,7 @@ function NavList() {
       </NavLink>
 
       <NavLink
-        to="/services"
+        to="/add_articles"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
@@ -126,7 +126,7 @@ function NavList() {
         </a>
       </NavLink>
       <NavLink
-        to="/services"
+        to="/all_articles"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
@@ -136,7 +136,7 @@ function NavList() {
         </a>
       </NavLink>
       <NavLink
-        to="/services"
+        to="/subscriptions"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
@@ -147,7 +147,7 @@ function NavList() {
       </NavLink>
 
       <NavLink
-        to="/services"
+        to="/my_articles"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
@@ -157,7 +157,7 @@ function NavList() {
         </a>
       </NavLink>
       <NavLink
-        to="/services"
+        to="/premium_articles"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
@@ -226,7 +226,7 @@ export function NavbarWithMegaMenu() {
 
   const closeMenu = () => setIsMenuOpen(false);
   return (
-    <Navbar className=" text-black max-w-full border-none rounded-none py-2 px-4 lg:px-8 lg:py-4 ">
+    <Navbar className=" text-black max-w-full border-none rounded-none py-2 px-4 shadow-none lg:px-8 lg:py-4 ">
       <div className="mx-auto container  shadow-none  border-none">
         <div className="flex items-center justify-between">
           <Link
@@ -248,7 +248,7 @@ export function NavbarWithMegaMenu() {
                 <MenuHandler>
                   <Button
                     variant="text"
-                    color="blue-gray"
+                    colors="blue-gray"
                     className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
                   >
                     <Avatar

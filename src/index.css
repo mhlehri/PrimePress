@@ -7,16 +7,6 @@
 /* body {
   font-family: "barlow-semi-condensed";
 } */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-body,
-p,
-a,
-div,
-button {
+* {
   font-family: "Inconsolata", monospace;
 }

@@ -18,6 +18,26 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
+        path: "/add_articles",
+        element: <div>add article</div>,
+      },
+      {
+        path: "/all_articles",
+        element: <div>all article</div>,
+      },
+      {
+        path: "/subscriptions",
+        element: <div>subscriptions</div>,
+      },
+      {
+        path: "/my_articles",
+        element: <div>my_articles</div>,
+      },
+      {
+        path: "/premium_articles",
+        element: <div>premium_articles</div>,
+      },
+      {
         path: "/profile/:user",
         element: <Profile></Profile>,
       },
