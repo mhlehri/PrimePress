@@ -48,7 +48,8 @@ export function Selects({ optionObject }) {
 }
 const AddArticles = () => {
   return (
-    <div className="text-black w-2/4  mx-auto h-[70vh] flex items-center ">
+    <div className="text-black w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
+      <h1 className="text-2xl font-bold my-6 text-center">Add New Articles</h1>
       <form className="">
         <div className="mb-6">
           <label
