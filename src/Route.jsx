@@ -7,6 +7,7 @@ import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import AddArticles from "./pages/AddArticles/AddArticles";
+import AllArticles from "./pages/AllArticles/AllArticles";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/all_articles",
-        element: <div>all article</div>,
+        element: <AllArticles />,
       },
       {
         path: "/dashboard",

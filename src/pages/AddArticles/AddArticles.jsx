@@ -51,38 +51,22 @@ const AddArticles = () => {
     <div className="text-black w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
       <h1 className="text-2xl font-bold my-6 text-center">Add New Articles</h1>
       <form className="">
-        <div className="mb-6">
-          <label
-            htmlFor="publisher"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Publisher Name
-          </label>
-          <input
-            id="publisher"
-            type="text"
-            placeholder="your name here"
-            className="py-2 outline-blue-400 px-4 block w-full border border-gray-400 rounded-lg text-sm "
-            required
-          />
-        </div>
         <div className="grid gap-6 mb-6 md:grid-cols-2">
           <div>
             <label
-              htmlFor="title"
-              className="block mb-2  text-sm font-medium text-gray-900"
+              htmlFor="publisher"
+              className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Title
+              Publisher Name
             </label>
             <input
-              id="title"
+              id="publisher"
               type="text"
-              placeholder="article title here"
-              className="py-2 px-4 block outline-blue-400  w-full border border-gray-400 rounded-lg text-sm "
+              placeholder="your name here"
+              className="py-2 outline-blue-400 px-4 block w-full border border-gray-400 rounded-lg text-sm "
               required
             />
           </div>
-
           <div>
             <label
               htmlFor="title"
@@ -111,6 +95,22 @@ const AddArticles = () => {
             <Selects optionObject={options2} />
           </div>
         </div>
+        <div>
+          <label
+            htmlFor="title"
+            className="block mb-2  text-sm font-medium text-gray-900"
+          >
+            Title
+          </label>
+          <input
+            id="title"
+            type="text"
+            placeholder="article title here"
+            className="py-2 px-4 block outline-blue-400 mb-6  w-full border border-gray-400 rounded-lg text-sm "
+            required
+          />
+        </div>
+
         <label
           htmlFor="article"
           className="block mb-2  text-sm font-medium text-gray-900"
