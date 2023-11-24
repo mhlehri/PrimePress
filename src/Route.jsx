@@ -8,6 +8,7 @@ import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import AddArticles from "./pages/AddArticles/AddArticles";
 import AllArticles from "./pages/AllArticles/AllArticles";
+import Details from "./pages/Details/Details";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
         element: <AddArticles />,
       },
       {
-        path: "/all_articles",
+        path: "/articles",
         element: <AllArticles />,
       },
       {
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/:user",
-        element: <Profile></Profile>,
+        element: <Profile />,
+      },
+      {
+        path: "/article/details",
+        element: <Details />,
       },
     ],
   },

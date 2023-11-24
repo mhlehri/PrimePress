@@ -78,7 +78,7 @@ const Carousels = () => {
               color="white"
               className=" border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] mx-auto border-[#58bfff]  text-[#58bfff] rounded-none  hover:text-white delay-100 ease-linear duration-200"
             >
-              see more
+              details
             </Button>
           </div>
         </div>
@@ -101,7 +101,7 @@ const Carousels = () => {
               color="white"
               className=" border-b-2 rounded-none hover:bg-white hover:text-black delay-100 ease-linear duration-300"
             >
-              see more
+              details
             </Button>
           </div>
         </div>

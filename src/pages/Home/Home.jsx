@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Carousels from "../../components/Carousel/Carousel";
 import ListenPodcast from "../../components/ListenPodcast/ListenPodcast";
 import PriceCard from "../../components/PriceCard/PriceCard";
@@ -9,6 +10,10 @@ import Cards from "../../components/card/Card";
 import Tables from "../../components/table/Table";
 
 const Home = () => {
+  useEffect(() => {
+    window.document.title = "PrimePress | Home";
+    console.log(location);
+  }, []);
   return (
     <div>
       <div className="grid grid-cols-12">

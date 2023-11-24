@@ -126,7 +126,7 @@ function NavList() {
         </a>
       </NavLink>
       <NavLink
-        to="/all_articles"
+        to="/articles"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""
         }
