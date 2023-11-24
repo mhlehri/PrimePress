@@ -6,6 +6,7 @@ import { SignUp } from "./pages/Signup/Signup";
 import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
+import AddArticles from "./pages/AddArticles/AddArticles";
 
 const router = createBrowserRouter([
   {
@@ -15,15 +16,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home></Home>,
+        element: <Home />,
       },
       {
         path: "/add_articles",
-        element: <div>add article</div>,
+        element: <AddArticles />,
       },
       {
         path: "/all_articles",
         element: <div>all article</div>,
+      },
+      {
+        path: "/dashboard",
+        element: <div>dashboard</div>,
       },
       {
         path: "/subscriptions",

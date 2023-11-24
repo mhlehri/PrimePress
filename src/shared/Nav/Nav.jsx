@@ -136,6 +136,16 @@ function NavList() {
         </a>
       </NavLink>
       <NavLink
+        to="/dashboard"
+        className={({ isActive, isPending }) =>
+          isPending ? "pending" : isActive ? "overline  font-bold" : ""
+        }
+      >
+        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
+          Dashboard
+        </a>
+      </NavLink>
+      <NavLink
         to="/subscriptions"
         className={({ isActive, isPending }) =>
           isPending ? "pending" : isActive ? "overline  font-bold" : ""

@@ -4,12 +4,13 @@ const SideContent = () => {
   return (
     <div>
       <h3 className="text-2xl font-bold mb-5">Recent news</h3>
+
       <a
         href="#"
         className="flex flex-col items-center  rounded-lg md:max-w-xl "
       >
         <img
-          className="object-cover w-full   md:h-auto  "
+          className="object-cover w-full   md:h-auto "
           src="https://www.aljazeera.com/wp-content/uploads/2023/11/AP23323576681891-1700417500.jpg?fit=1170%2C780&quality=80"
           alt=""
         />
