@@ -53,7 +53,6 @@ function AdminNav() {
             }`}
           >
             <ListItem disablePadding>
-              {" "}
               <ListItemButton sx={{ color: "black" }}>
                 <ListItemIcon sx={{ color: "black" }}>
                   {(index === 0 && <DashboardIcon />) ||

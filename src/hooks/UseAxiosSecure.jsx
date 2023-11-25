@@ -19,9 +19,9 @@ const UseAxiosSecure = () => {
       (err) => {
         console.log(err, "jamela");
         if (
-          err.response.status === 404 ||
-          err.response.status === 401 ||
-          err.response.status === 403
+          err.response?.status === 404 ||
+          err.response?.status === 401 ||
+          err.response?.status === 403
         ) {
           signO()
             .then(() => {

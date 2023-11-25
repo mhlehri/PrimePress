@@ -2,7 +2,7 @@ import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
 export const Card = ({ data }) => {
-  const { category, publisher, tags, title, article, publish_date } = data;
+  const { _id, category, publisher, tags, title, article, publish_date } = data;
   const ar = article.slice(0, 80);
   return (
     <div className=" sm:flex">
@@ -20,7 +20,7 @@ export const Card = ({ data }) => {
           <div className="mt-5 sm:mt-auto">
             <p className="text-xs text-gray-600 mt-2">{publisher}</p>
             <p className="text-xs text-gray-500 mb-2 ">{publish_date}</p>
-            <Link to={`/article/details`}>
+            <Link to={`/article/details/${_id}`}>
               <Button
                 size="sm"
                 variant="text"

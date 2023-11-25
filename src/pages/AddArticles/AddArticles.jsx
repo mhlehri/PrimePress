@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Btn from "../../components/Btn/Btn";
-import Selects from "../../shared/Selects/Selects";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 const options1 = [
   { value: "Politics", label: "Politics" },
   { value: "Business", label: "Business" },
@@ -18,6 +18,7 @@ const options2 = [
 ];
 
 const AddArticles = () => {
+  const axiosP = useAxiosPublic();
   const { register, handleSubmit } = useForm();
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedTags, setSelectedTags] = useState(null);
@@ -42,9 +43,11 @@ const AddArticles = () => {
       title,
       article,
       view: 0,
-      date: new Date(),
     };
     console.log(Info);
+    axiosP.post("/addArticle", Info).then((res) => {
+      console.log(res.data);
+    });
   };
 
   return (
