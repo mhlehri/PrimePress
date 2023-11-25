@@ -1,5 +1,5 @@
 import Search from "../../components/Search/Search";
-import { Card, CardP } from "../../components/card/Card";
+import { Card } from "../../components/card/Card";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Selects from "../../shared/Selects/Selects";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
@@ -71,12 +71,8 @@ const AllArticles = () => {
         }
       >
         <div className="grid grid-cols-2 gap-5 my-20">
-          {articles?.map((data, index) => {
-            return data.category == "premium" ? (
-              <CardP data={data}></CardP>
-            ) : (
-              <Card data={data}></Card>
-            );
+          {articles?.map((data, inx) => {
+            return <Card data={data} key={inx}></Card>;
           })}
         </div>
       </InfiniteScroll>
