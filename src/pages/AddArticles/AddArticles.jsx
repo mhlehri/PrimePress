@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 const options1 = [
   { value: "Politics", label: "Politics" },
-  { value: "Politics", label: "Politics" },
   { value: "Business", label: "Business" },
   { value: "Technology", label: "Technology" },
   { value: "Sports", label: "Sports" },
@@ -21,18 +20,30 @@ const options2 = [
 const AddArticles = () => {
   const { register, handleSubmit } = useForm();
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedTags, setSelectedTags] = useState(null);
 
   const onSubmit = (data, e) => {
     e.preventDefault();
     // const form = e.target;
     const publisher = data.publisher;
     const image = data.image;
-    const category = data.category;
-    const tags = data.tags;
+    // const category = data.category;
+    // const tags = data.tags;
     const title = data.title;
     const article = data.article;
-    let l = e.target.category.value;
-    const Info = { publisher, image, category, tags, title, article, l };
+    let category = e.target.category.value;
+    let tags = e.target.tag.value;
+
+    const Info = {
+      publisher,
+      image,
+      category,
+      tags,
+      title,
+      article,
+      view: 0,
+      date: new Date(),
+    };
     console.log(Info);
   };
 
@@ -77,7 +88,14 @@ const AddArticles = () => {
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Tags
             </label>
-            <Selects {...register("tags")} options={options1} />
+            <Select
+              required
+              value={selectedTags}
+              {...register("tags")}
+              name="tag"
+              onChange={setSelectedTags}
+              options={options1}
+            />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900">
@@ -87,8 +105,8 @@ const AddArticles = () => {
               // styles={customStyles}
               value={selectedOption}
               required
-              name="category"
               {...register("category")}
+              name="category"
               onChange={setSelectedOption}
               options={options2}
             />

@@ -1,7 +1,8 @@
 import Search from "../../components/Search/Search";
-import Card from "../../components/card/Card";
+import { Card, CardP } from "../../components/card/Card";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Selects from "../../shared/Selects/Selects";
-
+import { useQuery } from "@tanstack/react-query";
 const options = [
   { value: "All", label: "All" },
   { value: "Politics", label: "Politics" },
@@ -14,6 +15,18 @@ const options = [
 ];
 
 const AllArticles = () => {
+  const axiosP = useAxiosPublic();
+  const {
+    isPending,
+    error,
+    data: articlesData,
+  } = useQuery({
+    queryKey: ["allarticles"],
+    queryFn: async () => {
+      const res = await axiosP.get("/articles");
+      return res.data;
+    },
+  });
   return (
     <div>
       <div className="my-12 grid grid-cols-3">
@@ -21,7 +34,19 @@ const AllArticles = () => {
         <br />
         <Search />
       </div>
-      <Card></Card>
+      {isPending ? (
+        ""
+      ) : (
+        <div className="grid grid-cols-2 gap-5 my-20">
+          {articlesData?.map((data, index) => {
+            return data.category == "premium" ? (
+              <CardP data={data}></CardP>
+            ) : (
+              <Card data={data}></Card>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

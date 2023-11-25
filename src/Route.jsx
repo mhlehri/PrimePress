@@ -61,19 +61,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <div>hoime</div>,
+        element: <Home />,
       },
       {
-        path: "/dashboard/allusers",
+        path: "/dashboard/all users",
         element: <div>oime</div>,
       },
       {
-        path: "/dashboard/fdfd",
-        element: <div>hoime</div>,
+        path: "/dashboard/all articles",
+        element: <div>all articles</div>,
       },
       {
-        path: "/dashboard/fd",
-        element: <div>hoime</div>,
+        path: "/dashboard/add publisher",
+        element: <div>add publisher</div>,
+      },
+      {
+        path: "/dashboard/pending articles",
+        element: <div>pending articles</div>,
       },
     ],
   },

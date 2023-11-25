@@ -1,16 +1,16 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosS = axios.create({
-  baseURL: "https://server12-two.vercel.app",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 const UseAxiosSecure = () => {
   const signO = useAuth();
-  // const navigate = useNavigate();
+
   useEffect(() => {
     axiosS.interceptors.response.use(
       (res) => {
@@ -35,7 +35,6 @@ const UseAxiosSecure = () => {
                 progress: undefined,
                 theme: "colored",
               });
-              // navigate("/login");
             })
             .catch((err) => console.log(err));
         }

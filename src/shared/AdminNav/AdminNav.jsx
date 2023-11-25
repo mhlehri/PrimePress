@@ -40,19 +40,22 @@ function AdminNav() {
       <List>
         {[
           "Dashboard",
-          "Allusers",
+          "All Users",
           "All Articles",
           "Add Publisher",
           "Pending Articles",
         ].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            {" "}
-            <ListItemButton sx={{ color: "black" }}>
-              <Link
-                className="flex"
-                to={`/dashboard${text == "Dash"`/${text.toLowerCase()}`}`}
-              >
-                <ListItemIcon>
+          <Link
+            key={index}
+            className="flex"
+            to={`/dashboard${
+              text === "Dashboard" ? "" : `/${text.toLowerCase()}`
+            }`}
+          >
+            <ListItem disablePadding>
+              {" "}
+              <ListItemButton sx={{ color: "black" }}>
+                <ListItemIcon sx={{ color: "black" }}>
                   {(index === 0 && <DashboardIcon />) ||
                     (index === 1 && <GroupIcon />) ||
                     (index === 2 && <VerticalSplitIcon />) ||
@@ -60,9 +63,9 @@ function AdminNav() {
                     (index === 4 && <HourglassTopIcon />)}
                 </ListItemIcon>
                 <ListItemText primary={text} />
-              </Link>
-            </ListItemButton>
-          </ListItem>
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
