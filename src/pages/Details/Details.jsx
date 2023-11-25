@@ -8,7 +8,8 @@ const Details = () => {
           <div>
             <img src="" alt="" />
             <div>
-              <h5></h5>
+              <h5>Title</h5>
+              <img src="" alt="" />
               <p></p>
             </div>
           </div>

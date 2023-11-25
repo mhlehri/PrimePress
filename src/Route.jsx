@@ -9,6 +9,7 @@ import Profile from "./pages/Profile/Profile";
 import AddArticles from "./pages/AddArticles/AddArticles";
 import AllArticles from "./pages/AllArticles/AllArticles";
 import Details from "./pages/Details/Details";
+import AdminLayout from "./Layouts/AdminLayout";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <div>dashboard</div>,
+        element: <AdminLayout />,
       },
       {
         path: "/subscriptions",
@@ -51,6 +52,28 @@ const router = createBrowserRouter([
       {
         path: "/article/details",
         element: <Details />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <div>hoime</div>,
+      },
+      {
+        path: "/dashboard/allusers",
+        element: <div>oime</div>,
+      },
+      {
+        path: "/dashboard/fdfd",
+        element: <div>hoime</div>,
+      },
+      {
+        path: "/dashboard/fd",
+        element: <div>hoime</div>,
       },
     ],
   },

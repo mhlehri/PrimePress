@@ -1,7 +1,8 @@
+import { useState } from "react";
 import Btn from "../../components/Btn/Btn";
 import Selects from "../../shared/Selects/Selects";
 import { useForm } from "react-hook-form";
-
+import Select from "react-select";
 const options1 = [
   { value: "Politics", label: "Politics" },
   { value: "Politics", label: "Politics" },
@@ -19,13 +20,20 @@ const options2 = [
 
 const AddArticles = () => {
   const { register, handleSubmit } = useForm();
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const onSubmit = (data, e) => {
     e.preventDefault();
     // const form = e.target;
-    const email = data.email;
-    const password = data.password;
-    const user = { email, password };
+    const publisher = data.publisher;
+    const image = data.image;
+    const category = data.category;
+    const tags = data.tags;
+    const title = data.title;
+    const article = data.article;
+    let l = e.target.category.value;
+    const Info = { publisher, image, category, tags, title, article, l };
+    console.log(Info);
   };
 
   return (
@@ -51,15 +59,15 @@ const AddArticles = () => {
           </div>
           <div>
             <label
-              htmlFor="title"
+              htmlFor="image"
               className="block mb-2  text-sm font-medium text-gray-900"
             >
-              Title
+              Image
             </label>
             <input
-              id="title"
+              id="image"
               type="file"
-              {...register("title")}
+              {...register("image")}
               placeholder="article title here"
               className="py-2 file:hidden px-4 block outline-blue-400  w-full border border-gray-400 rounded-lg text-sm "
               required
@@ -69,13 +77,21 @@ const AddArticles = () => {
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Tags
             </label>
-            <Selects options={options1} />
+            <Selects {...register("tags")} options={options1} />
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Category
             </label>
-            <Selects options={options2} />
+            <Select
+              // styles={customStyles}
+              value={selectedOption}
+              required
+              name="category"
+              {...register("category")}
+              onChange={setSelectedOption}
+              options={options2}
+            />
           </div>
         </div>
         <div>
@@ -88,6 +104,7 @@ const AddArticles = () => {
           <input
             id="title"
             type="text"
+            {...register("title")}
             placeholder="article title here"
             className="py-2 px-4 block outline-blue-400 mb-6  w-full border border-gray-400 rounded-lg text-sm "
             required
@@ -104,6 +121,7 @@ const AddArticles = () => {
           className="py-3 outline-blue-400  px-4 block w-full border border-gray-400 mb-6 rounded-lg text-sm "
           rows="3"
           id="article"
+          {...register("article")}
           placeholder="write article here"
         ></textarea>
         <Btn text="Publish"></Btn>
