@@ -6,11 +6,13 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 export function SignUp() {
+  const axiosP = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -94,6 +96,14 @@ export function SignUp() {
             .then(
               signO()
                 .then(() => {
+                  const user = { name, email, img };
+                  console.log(user);
+                  axiosP
+                    .post("/addUser", user)
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => console.log(err));
                   navigate("/login");
                   setCreating(false);
                 })
@@ -262,8 +272,22 @@ export function SignUp() {
             <Button
               onClick={() =>
                 signG()
-                  .then(() => {
+                  .then((res) => {
                     navigate("/");
+                    console.log(res.user.displayName);
+                    const user = {
+                      name: res.user.displayName,
+                      email: res.user.email,
+                      img: res.user.photoURL,
+                    };
+                    console.log(user);
+                    axiosP
+                      .post("/addUser", user)
+                      .then((res) => {
+                        console.log(res);
+                      })
+                      .catch((err) => console.log(err));
+
                     toast.success(`Successfully Logged In!`, {
                       position: "top-center",
                       autoClose: 1500,

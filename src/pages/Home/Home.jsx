@@ -8,6 +8,8 @@ import Stats from "../../components/Stats/Stats";
 import StayConnected from "../../components/StayConnected/StayConnected";
 import Cards from "../../components/card/Card";
 import Tables from "../../components/table/Table";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -28,7 +30,23 @@ const Home = () => {
 
   console.log(showAlert);
   {
-    showAlert ? <></> : "";
+    showAlert ? (
+      <>
+        {Swal.fire({
+          title: "<strong>Read <u>Premium Articles</u></strong>",
+          icon: "info",
+          html: `
+    Buy Our <a href="/subscriptions" class="bg-teal-800 text-white rounded-lg px-2 hover:bg-orange-400 hover:text-black">Premium</a> Subscription
+  `,
+          showCloseButton: true,
+          showConfirmButton: false,
+          showCancelButton: true,
+          focusConfirm: false,
+        })}
+      </>
+    ) : (
+      ""
+    );
   }
   return (
     <div>

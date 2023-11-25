@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all users",
-        element: <div>oime</div>,
+        element: <div className="w-full border-4 overflow-hidden">oime</div>,
       },
       {
         path: "/dashboard/all articles",

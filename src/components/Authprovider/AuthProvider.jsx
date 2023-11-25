@@ -10,7 +10,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import axios from "axios";
+
 import UseAxiosSecure from "../../hooks/UseAxiosSecure";
 
 const auth = getAuth(app);
