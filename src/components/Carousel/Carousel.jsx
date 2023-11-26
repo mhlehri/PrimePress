@@ -5,9 +5,13 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Button } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const Carousels = () => {
   const axiosP = useAxiosPublic();
+  const { data: user } = useQuery({
+    queryKey: ["userProfile"],
+  });
   const { data } = useQuery({
     queryKey: ["trending"],
     queryFn: async () => {
@@ -71,6 +75,7 @@ const Carousels = () => {
       >
         {data?.map((d) => {
           const des = d?.article.slice(0, 140);
+          const pre = d?.category === "premium";
           return (
             <div key={d} className="h-[70vh] relative">
               <div className="h-full w-full inset-0 bg-black/40 absolute"></div>
@@ -78,16 +83,25 @@ const Carousels = () => {
                 className="object-cover h-full object-bottom"
                 src={d?.image}
               />
-              <div className="space-y-3 absolute p-16 lg:pb-36 lg:pl-20 z-50 text-white bottom-0 text-left from-transparent bg-gradient-to-b to-black left-1/2 -translate-x-1/2 w-full">
+              <div
+                className={`space-y-3 absolute p-16 lg:pb-36 lg:pl-20 z-50 ${
+                  pre ? "text-[#FFD700]" : "text-white"
+                } bottom-0 text-left from-transparent bg-gradient-to-b to-black left-1/2 -translate-x-1/2 w-full`}
+              >
                 <h1 className="text-3xl font-bold">{d.title}</h1>
                 <p className="w-2/3 opacity-80 text-xs md:text-sm lg:text-base">
                   {des}
                 </p>
+
                 <Button
                   size="sm"
-                  variant="text"
-                  color="white"
-                  className=" border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] mx-auto border-[#58bfff]  text-[#58bfff] rounded-none  hover:text-white delay-100 ease-linear duration-200"
+                  disabled={pre ? (user?.premium ? false : true) : ""}
+                  variant="filled"
+                  className={` border-b-2 ${
+                    pre
+                      ? "border-[#FFD700] hover:bg-gradient-to-tl from-[#b48811] to-[#FFD700] text-[#FFD700]"
+                      : "hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] border-[#58bfff]  text-[#58bfff] "
+                  } mx-auto  delay-100 rounded-none hover:text-black ease-linear duration-200`}
                 >
                   details
                 </Button>

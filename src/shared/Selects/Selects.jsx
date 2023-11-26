@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
 
 export default function Selects({ options }) {
@@ -24,7 +24,7 @@ export default function Selects({ options }) {
       styles={customStyles}
       value={selectedOption}
       required
-      onChange={setSelectedOption}
+      onChange={() => setSelectedOption()}
       options={options}
     />
   );

@@ -10,6 +10,7 @@ import AddArticles from "./pages/AddArticles/AddArticles";
 import AllArticles from "./pages/AllArticles/AllArticles";
 import Details from "./pages/Details/Details";
 import AdminLayout from "./Layouts/AdminLayout";
+import PremiumArticles from "./pages/PremiumArticles/PremiumArticles";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/premium_articles",
-        element: <div>premium_articles</div>,
+        element: <PremiumArticles />,
       },
       {
         path: "/profile/:user",

@@ -9,7 +9,6 @@ import StayConnected from "../../components/StayConnected/StayConnected";
 import Cards from "../../components/card/Card";
 import Tables from "../../components/table/Table";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
 const Home = () => {
   const [showAlert, setShowAlert] = useState(false);
@@ -18,7 +17,6 @@ const Home = () => {
     window.document.title = "PrimePress | Home";
     // Check if the alert has been shown before
     const hasAlertBeenShown = sessionStorage.getItem("hasAlertBeenShown");
-
     if (!hasAlertBeenShown) {
       const timeoutId = setTimeout(() => {
         setShowAlert(true);
@@ -48,6 +46,7 @@ const Home = () => {
       ""
     );
   }
+
   return (
     <div>
       <div className="grid grid-cols-12">
@@ -83,8 +82,8 @@ const Home = () => {
       </div>
       <StayConnected />
       <ListenPodcast />
-      {/* <Cards></Cards>
-      <Tables></Tables> */}
+      {/* <Cards></Cards> */}
+      <Tables></Tables>
     </div>
   );
 };

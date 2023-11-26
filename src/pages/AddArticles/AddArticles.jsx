@@ -45,9 +45,14 @@ const AddArticles = () => {
       view: 0,
     };
     console.log(Info);
-    axiosP.post("/addArticle", Info).then((res) => {
-      console.log(res.data);
-    });
+    axiosP
+      .post("/addArticle", Info)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

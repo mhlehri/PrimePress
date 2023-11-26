@@ -1,13 +1,10 @@
+import { useEffect, useState } from "react";
 import Search from "../../components/Search/Search";
 import { Card } from "../../components/card/Card";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Selects from "../../shared/Selects/Selects";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import InfiniteScroll from "react-infinite-scroll-component";
-import Skeleton from "./../../components/Skeleton/Skeleton";
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Select from "react-select";
-
 const options = [
   { value: "All", label: "All" },
   { value: "Politics", label: "Politics" },
@@ -19,29 +16,19 @@ const options = [
   { value: "Entertainment", label: "Entertainment" },
 ];
 
-const AllArticles = () => {
+const PremiumArticles = () => {
   const axiosP = useAxiosPublic();
   const [selectedOption, setSelectedOption] = useState(undefined);
-  const getArticles = async (page) => {
-    const res = await fetch(
-      `http://localhost:5000/articles?limit=10&page=${page}&filter=${
-        selectedOption ? selectedOption.value : "All"
-      }`
-    );
-    return res.json();
-  };
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["infinity", selectedOption],
-    queryFn: ({ pageParam = 1 }) => getArticles(pageParam),
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.length == 10 ? pages.length + 1 : undefined;
+  console.log(selectedOption);
+  const { isPending, data: premium } = useQuery({
+    queryKey: ["premium", selectedOption],
+    queryFn: async () => {
+      const res = await axiosP.get(
+        `/premium?filter=${selectedOption ? selectedOption.value : "All"}`
+      );
+      return res.data;
     },
   });
-  console.log(data);
-  const articles = data?.pages.reduce((acc, page) => {
-    return [...acc, ...page];
-  }, []);
-  console.log(articles);
 
   const customStyles = {
     control: (provided, state) => ({
@@ -58,17 +45,6 @@ const AllArticles = () => {
     }),
   };
 
-  // const {
-  //   isPending,
-  //   error,
-  //   data: articlesData,
-  // } = useQuery({
-  //   queryKey: ["allarticles"],
-  //   queryFn: async () => {
-  //     const res = await axiosP.get("/articles");
-  //     return res.data;
-  //   },
-  // });
   return (
     <div>
       <div className="my-12 grid grid-cols-3">
@@ -82,29 +58,17 @@ const AllArticles = () => {
         <br />
         <Search />
       </div>
-      {/* {isPending ? (
+      {isPending ? (
         ""
-      ) : ( */}
-      <InfiniteScroll
-        dataLength={articles ? articles.length : 0}
-        next={() => fetchNextPage()}
-        hasMore={hasNextPage}
-        loader={
-          <div className="grid grid-cols-2 gap-5 my-20">
-            <Skeleton />
-            <Skeleton />
-          </div>
-        }
-      >
+      ) : (
         <div className="grid grid-cols-2 gap-5 my-20">
-          {articles?.map((data, inx) => {
+          {premium?.map((data, inx) => {
             return <Card data={data} key={inx}></Card>;
           })}
         </div>
-      </InfiniteScroll>
-      {/* )} */}
+      )}
     </div>
   );
 };
 
-export default AllArticles;
+export default PremiumArticles;
