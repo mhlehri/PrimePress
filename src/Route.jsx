@@ -11,6 +11,8 @@ import AllArticles from "./pages/AllArticles/AllArticles";
 import Details from "./pages/Details/Details";
 import AdminLayout from "./Layouts/AdminLayout";
 import PremiumArticles from "./pages/PremiumArticles/PremiumArticles";
+import DHome from "./pages/Dashboard/DHome/DHome";
+import DAllUsers from "./pages/Dashboard/DAllUsers/DAllUsers";
 
 const router = createBrowserRouter([
   {
@@ -62,11 +64,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Home />,
+        element: <DHome />,
       },
       {
         path: "/dashboard/all users",
-        element: <div className="w-full border-4 overflow-hidden">oime</div>,
+        element: <DAllUsers />,
       },
       {
         path: "/dashboard/all articles",

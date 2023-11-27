@@ -1,8 +1,7 @@
 import Search from "../../components/Search/Search";
 import { Card } from "../../components/card/Card";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import Selects from "../../shared/Selects/Selects";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "./../../components/Skeleton/Skeleton";
 import { useState } from "react";
@@ -18,19 +17,29 @@ const options = [
   { value: "Health", label: "Health" },
   { value: "Entertainment", label: "Entertainment" },
 ];
+const options1 = [
+  { value: "All", label: "All" },
+  { value: "Politics", label: "Politics" },
+  { value: "Business", label: "Business" },
+  { value: "Technology", label: "Technology" },
+  { value: "Sports", label: "Sports" },
+  { value: "Science", label: "Science" },
+  { value: "Health", label: "Health" },
+  { value: "Entertainment", label: "Entertainment" },
+];
 
 const AllArticles = () => {
-  const axiosP = useAxiosPublic();
   const [selectedOption, setSelectedOption] = useState(undefined);
+  const [selectedOption1, setSelectedOption1] = useState(undefined);
   const getArticles = async (page) => {
     const res = await fetch(
       `http://localhost:5000/articles?limit=10&page=${page}&filter=${
         selectedOption ? selectedOption.value : "All"
-      }`
+      }&publisher=${selectedOption1}`
     );
     return res.json();
   };
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
+  const { isPending, data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ["infinity", selectedOption],
     queryFn: ({ pageParam = 1 }) => getArticles(pageParam),
     getNextPageParam: (lastPage, pages) => {
@@ -72,37 +81,51 @@ const AllArticles = () => {
   return (
     <div>
       <div className="my-12 grid grid-cols-3">
-        <Select
-          styles={customStyles}
-          value={selectedOption}
-          required
-          onChange={setSelectedOption}
-          options={options}
-        />
+        <div className="grid grid-cols-2 gap-2">
+          <Select
+            styles={customStyles}
+            value={selectedOption}
+            required
+            placeholder="Filter tags"
+            onChange={setSelectedOption}
+            options={options}
+          />
+          <Select
+            styles={customStyles}
+            value={selectedOption1}
+            required
+            placeholder="Filter publishers"
+            onChange={setSelectedOption1}
+            options={options1}
+          />
+        </div>
         <br />
         <Search />
       </div>
-      {/* {isPending ? (
-        ""
-      ) : ( */}
-      <InfiniteScroll
-        dataLength={articles ? articles.length : 0}
-        next={() => fetchNextPage()}
-        hasMore={hasNextPage}
-        loader={
-          <div className="grid grid-cols-2 gap-5 my-20">
-            <Skeleton />
-            <Skeleton />
-          </div>
-        }
-      >
+      {isPending ? (
         <div className="grid grid-cols-2 gap-5 my-20">
-          {articles?.map((data, inx) => {
-            return <Card data={data} key={inx}></Card>;
-          })}
+          <Skeleton />
+          <Skeleton />
         </div>
-      </InfiniteScroll>
-      {/* )} */}
+      ) : (
+        <InfiniteScroll
+          dataLength={articles ? articles.length : 0}
+          next={() => fetchNextPage()}
+          hasMore={hasNextPage}
+          loader={
+            <div className="grid grid-cols-2 gap-5 my-20">
+              <Skeleton />
+              <Skeleton />
+            </div>
+          }
+        >
+          <div className="grid grid-cols-2 gap-5 my-20">
+            {articles?.map((data, inx) => {
+              return <Card data={data} key={inx}></Card>;
+            })}
+          </div>
+        </InfiniteScroll>
+      )}
     </div>
   );
 };

@@ -28,13 +28,13 @@ const Search = () => {
         <input
           type="search"
           id="default_search"
-          className="block w-full p-2.5 ps-10 text-sm text-gray-900 border-gray-400 border-2 focus:border-blue-700  rounded-lg outline-none "
+          className="block w-full p-2.5 pe-24 ps-10  text-sm text-gray-900 border-gray-400 border-2 focus:border-blue-700  rounded-lg outline-none "
           placeholder="Search Sports, Politics..."
           required
         />
         <button
           type="submit"
-          className="text-black text-md px-4 p-1.5 bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] h-full absolute end-0 rounded-e-lg bottom-0"
+          className="text-black text-md px-4 p-1.5 border-2 border-gray-500  hover:border-[#58bfff] hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] h-full absolute end-0 rounded-e-lg bottom-0"
         >
           Search
         </button>

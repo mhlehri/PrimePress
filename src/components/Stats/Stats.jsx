@@ -1,16 +1,8 @@
 import CountUp from "react-countup";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { useQuery } from "@tanstack/react-query";
-const Stats = () => {
-  const axiosP = useAxiosPublic();
-  const { data } = useQuery({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const res = await axiosP.get("/users");
-      return res.data;
-    },
-  });
+import useUsers from "../../hooks/useUsers";
 
+const Stats = () => {
+  const { data } = useUsers();
   console.log(data);
   const premium = data?.filter((pre) => pre?.Premium === true).length;
   console.log(premium);
