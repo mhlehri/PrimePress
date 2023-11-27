@@ -9,30 +9,33 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import useUsers from "../../../hooks/useUsers";
+import { Button } from "@material-tailwind/react";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
   { id: "email", label: "Email", minWidth: 100 },
   { id: "img", label: "Image" },
   {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
+    id: "button",
+    label: "Action",
     minWidth: 170,
-    align: "right",
-    format: (value) => value.toLocaleString("en-US"),
+    align: "center",
   },
 ];
 
-function createData(name, email, img, size) {
-  return { name, email, img, size };
+function createData(name, email, img) {
+  return { name, email, img };
 }
 
 export function Tables() {
   const [page, setPage] = React.useState(0);
 
-  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { data } = useUsers();
+  const { data, refetch } = useUsers();
+  const axiosP = useAxiosPublic();
   console.log(data);
 
   const handleChangePage = (event, newPage) => {
@@ -73,8 +76,50 @@ export function Tables() {
                         <TableCell key={column.id} align={column.align}>
                           {column?.id == "img" ? (
                             <img width={80} height={80} src={value} />
-                          ) : column.format && typeof value === "number" ? (
-                            column.format(value)
+                          ) : column.id === "button" ? (
+                            row?.role == "admin" ? (
+                              <Button variant="text" color="orange">
+                                Admin
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={() => {
+                                  Swal.fire({
+                                    title: `Are you sure?`,
+                                    text: `Your are going to add (${row.name}) as admin`,
+                                    color: "teal",
+                                    icon: "question",
+                                    iconColor: "teal",
+                                    background: "#bee6e1",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "teal",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes! Sure",
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      axiosP
+                                        .put(`/admin/${row?._id}`)
+                                        .then(() => {
+                                          refetch();
+                                        });
+                                      Swal.fire({
+                                        title: "Done!",
+                                        text: `(${row.name}) added successfully as Admin`,
+                                        color: "teal",
+                                        confirmButtonColor: "teal",
+                                        icon: "success",
+                                        iconColor: "teal",
+                                        background: "#bee6e1",
+                                      });
+                                    }
+                                  });
+                                }}
+                                variant="gradient"
+                                color="teal"
+                              >
+                                Make Admin
+                              </Button>
+                            )
                           ) : (
                             value
                           )}
@@ -88,7 +133,7 @@ export function Tables() {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[4, 25, 100]}
+        rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={data?.length}
         rowsPerPage={rowsPerPage}
