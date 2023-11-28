@@ -31,6 +31,7 @@ export function SignUp() {
     const image = data.photo[0];
     const email = data.email;
     const password = data.password;
+    console.log(image);
 
     // if (password.length < 6) {
     //   return toast.error("Password should be at least 6 character!", {
@@ -111,7 +112,7 @@ export function SignUp() {
             )
             .catch((err) => {
               if (err) {
-                console.log(err.message);
+                console.log(err.code);
                 setCreating(false);
               }
             });
@@ -130,24 +131,24 @@ export function SignUp() {
               message: `${er}`,
             });
           }
-          // console.log(err.message);
-          // toast.error(`${err.message}`, {
-          //   position: "top-center",
-          //   autoClose: 2000,
-          //   hideProgressBar: false,
-          //   closeOnClick: true,
-          //   pauseOnHover: true,
-          //   draggable: true,
-          //   progress: undefined,
-          //   theme: "colored",
-          // });
+          console.log(err.message);
+          toast.error(`${err.code}`, {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     }
   };
   // };
   return (
     <div className="mx-3 ">
-      <div className="mx-auto max-w-lg my-20 px-6 py-5 dark:bg-blue-gray-100 rounded-lg">
+      <div className="mx-auto max-w-lg my-20 px-6 py-5  rounded-lg">
         <Card color="transparent" shadow={false} className="text-inherit">
           <h4 className="text-3xl font-bold">Register</h4>
           <form

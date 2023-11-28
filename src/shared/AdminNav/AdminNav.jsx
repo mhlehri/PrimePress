@@ -38,34 +38,29 @@ function AdminNav() {
       <Toolbar />
 
       <List>
-        {[
-          "Dashboard",
-          "All Users",
-          "All Articles",
-          "Add Publisher",
-          "Pending Articles",
-        ].map((text, index) => (
-          <Link
-            key={index}
-            className="flex"
-            to={`/dashboard${
-              text === "Dashboard" ? "" : `/${text.toLowerCase()}`
-            }`}
-          >
-            <ListItem disablePadding>
-              <ListItemButton sx={{ color: "black" }}>
-                <ListItemIcon sx={{ color: "black" }}>
-                  {(index === 0 && <DashboardIcon />) ||
-                    (index === 1 && <GroupIcon />) ||
-                    (index === 2 && <VerticalSplitIcon />) ||
-                    (index === 3 && <PersonAddAlt1Icon />) ||
-                    (index === 4 && <HourglassTopIcon />)}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+        {["Dashboard", "All Users", "All Articles", "Add Publisher"].map(
+          (text, index) => (
+            <Link
+              key={index}
+              className="flex"
+              to={`/dashboard${
+                text === "Dashboard" ? "" : `/${text.toLowerCase()}`
+              }`}
+            >
+              <ListItem disablePadding>
+                <ListItemButton sx={{ color: "black" }}>
+                  <ListItemIcon sx={{ color: "black" }}>
+                    {(index === 0 && <DashboardIcon />) ||
+                      (index === 1 && <GroupIcon />) ||
+                      (index === 2 && <VerticalSplitIcon />) ||
+                      (index === 3 && <PersonAddAlt1Icon />)}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          )
+        )}
       </List>
     </div>
   );

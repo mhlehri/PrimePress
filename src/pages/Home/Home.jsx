@@ -6,8 +6,6 @@ import BioCard from "../../components/Publisher/Publisher";
 import SideContent from "../../components/SideContent/SideContent";
 import Stats from "../../components/Stats/Stats";
 import StayConnected from "../../components/StayConnected/StayConnected";
-import Cards from "../../components/card/Card";
-import Tables from "../../components/table/Table";
 import Swal from "sweetalert2";
 
 const Home = () => {
@@ -48,7 +46,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="space-y-56 mb-28">
       <div className="grid grid-cols-12">
         <div className="col-span-8">
           <Carousels />
@@ -82,8 +80,6 @@ const Home = () => {
       </div>
       <StayConnected />
       <ListenPodcast />
-      {/* <Cards></Cards> */}
-      <Tables></Tables>
     </div>
   );
 };

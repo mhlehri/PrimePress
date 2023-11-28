@@ -12,6 +12,7 @@ import useUsers from "../../../hooks/useUsers";
 import { Button } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import Loading from "../../../components/Loading/Loading";
 
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
@@ -34,7 +35,7 @@ export function Tables() {
 
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { data, refetch } = useUsers();
+  const { data, refetch, isPending } = useUsers();
   const axiosP = useAxiosPublic();
   console.log(data);
 
@@ -65,70 +66,89 @@ export function Tables() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column?.id == "img" ? (
-                            <img width={80} height={80} src={value} />
-                          ) : column.id === "button" ? (
-                            row?.role == "admin" ? (
-                              <Button variant="text" color="orange">
-                                Admin
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={() => {
-                                  Swal.fire({
-                                    title: `Are you sure?`,
-                                    text: `Your are going to add (${row.name}) as admin`,
-                                    color: "teal",
-                                    icon: "question",
-                                    iconColor: "teal",
-                                    background: "#bee6e1",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "teal",
-                                    cancelButtonColor: "#d33",
-                                    confirmButtonText: "Yes! Sure",
-                                  }).then((result) => {
-                                    if (result.isConfirmed) {
-                                      axiosP
-                                        .put(`/admin/${row?._id}`)
-                                        .then(() => {
-                                          refetch();
+            {isPending ? (
+              <TableRow>
+                <TableCell align="center" colSpan={7}>
+                  <Loading />
+                </TableCell>
+              </TableRow>
+            ) : data ? (
+              data
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column?.id == "img" ? (
+                              <img width={80} height={80} src={value} />
+                            ) : column.id === "button" ? (
+                              row?.role == "admin" ? (
+                                <Button variant="text" color="orange">
+                                  Admin
+                                </Button>
+                              ) : (
+                                <Button
+                                  onClick={() => {
+                                    Swal.fire({
+                                      title: `Are you sure?`,
+                                      text: `Your are going to add (${row.name}) as admin`,
+                                      color: "teal",
+                                      icon: "question",
+                                      iconColor: "teal",
+                                      background: "#bee6e1",
+                                      showCancelButton: true,
+                                      confirmButtonColor: "teal",
+                                      cancelButtonColor: "#d33",
+                                      confirmButtonText: "Yes! Sure",
+                                    }).then((result) => {
+                                      if (result.isConfirmed) {
+                                        axiosP
+                                          .put(`/admin/${row?._id}`)
+                                          .then(() => {
+                                            refetch();
+                                          });
+                                        Swal.fire({
+                                          title: "Done!",
+                                          text: `(${row.name}) added successfully as Admin`,
+                                          color: "teal",
+                                          confirmButtonColor: "teal",
+                                          icon: "success",
+                                          iconColor: "teal",
+                                          background: "#bee6e1",
                                         });
-                                      Swal.fire({
-                                        title: "Done!",
-                                        text: `(${row.name}) added successfully as Admin`,
-                                        color: "teal",
-                                        confirmButtonColor: "teal",
-                                        icon: "success",
-                                        iconColor: "teal",
-                                        background: "#bee6e1",
-                                      });
-                                    }
-                                  });
-                                }}
-                                variant="gradient"
-                                color="teal"
-                              >
-                                Make Admin
-                              </Button>
-                            )
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+                                      }
+                                    });
+                                  }}
+                                  variant="gradient"
+                                  color="teal"
+                                >
+                                  Make Admin
+                                </Button>
+                              )
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })
+            ) : (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  No Data Available
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

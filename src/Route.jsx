@@ -13,6 +13,9 @@ import AdminLayout from "./Layouts/AdminLayout";
 import PremiumArticles from "./pages/PremiumArticles/PremiumArticles";
 import DHome from "./pages/Dashboard/DHome/DHome";
 import DAllUsers from "./pages/Dashboard/DAllUsers/DAllUsers";
+import DAllArticles from "./pages/Dashboard/DAllArticles/DAllArticles";
+import DAddPublisher from "./pages/Dashboard/DAddPublisher/DAddPublisher";
+import MyArticles from "./pages/MyArticles/MyArticles";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_articles",
-        element: <div>my_articles</div>,
+        element: <MyArticles />,
       },
       {
         path: "/premium_articles",
@@ -72,15 +75,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all articles",
-        element: <div>all articles</div>,
+        element: <DAllArticles />,
       },
       {
         path: "/dashboard/add publisher",
-        element: <div>add publisher</div>,
-      },
-      {
-        path: "/dashboard/pending articles",
-        element: <div>pending articles</div>,
+        element: <DAddPublisher />,
       },
     ],
   },
