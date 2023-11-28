@@ -88,7 +88,7 @@ export function Tables() {
                   <Loading />
                 </TableCell>
               </TableRow>
-            ) : user && data ? (
+            ) : user && data.length ? (
               data
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, i) => {

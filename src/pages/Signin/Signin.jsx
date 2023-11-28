@@ -4,9 +4,14 @@ import { toast } from "react-toastify";
 import Btn from "../../components/Btn/Btn";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useState } from "react";
+import Loading from "../../components/Loading/Loading";
 
 export function SignIn() {
   const { signIn, signG } = useAuth();
+  const [logging, setLogging] = useState(false);
+  const axiosP = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -16,6 +21,7 @@ export function SignIn() {
   const navigate = useNavigate();
   const onSubmit = (data, e) => {
     e.preventDefault();
+    setLogging(true);
     // const form = e.target;
     const email = data.email;
     const password = data.password;
@@ -23,6 +29,7 @@ export function SignIn() {
 
     signIn(email, password)
       .then(() => {
+        setLogging(false);
         toast.success("Successfully Logged In!", {
           position: "top-center",
           autoClose: 3000,
@@ -36,6 +43,7 @@ export function SignIn() {
         navigate("/");
       })
       .catch((err) => {
+        setLogging(false);
         console.dir(err);
         const error = err.code;
         if (error === "auth/too-many-requests") {
@@ -115,7 +123,12 @@ export function SignIn() {
                 )}
               </div>
             </div>
-            <Btn text="Log In"></Btn>
+            <Button
+              type="submit"
+              className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+            >
+              {logging ? <Loading /> : "Login"}
+            </Button>
             <p className="mt-4 text-center font-normal">
               Don't have an account?{" "}
               <Link to="/signUp" className="underline font-semibold text-black">
@@ -126,10 +139,24 @@ export function SignIn() {
           <div className="w-full mx-auto text-center">
             <hr className="border-t-2 border-black w-2/3 mx-auto py-2" />
             <Button
-              onClick={() =>
+              onClick={() => {
+                setLogging(true);
                 signG()
-                  .then(() => {
+                  .then((res) => {
+                    setLogging(false);
                     navigate("/");
+                    const user = {
+                      name: res.user.displayName,
+                      email: res.user.email,
+                      img: res.user.photoURL,
+                    };
+                    console.log(user);
+                    axiosP
+                      .post("/addUser", user)
+                      .then((res) => {
+                        console.log(res);
+                      })
+                      .catch((err) => console.log(err));
                     toast.success(`Successfully Logged In!`, {
                       position: "top-center",
                       autoClose: 1500,
@@ -141,8 +168,8 @@ export function SignIn() {
                       theme: "colored",
                     });
                   })
-                  .catch()
-              }
+                  .catch();
+              }}
               type="submit"
               className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 hover:scale-105  delay-50 ease-linear`}
             >

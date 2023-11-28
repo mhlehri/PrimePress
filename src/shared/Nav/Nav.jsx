@@ -21,8 +21,7 @@ import { Link, NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 import Btn from "../../components/Btn/Btn";
 import useAuth from "../../hooks/useAuth";
-import UseAxiosSecure from "../../hooks/UseAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import useUser from "../../hooks/useUser";
 
 const navListMenuItems = [
   {
@@ -104,6 +103,9 @@ function NavListMenu() {
 }
 
 function NavList() {
+  const { user } = useAuth();
+  const { data: userData } = useUser();
+  console.log(userData);
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row  te items-center xl:space-x-1   2xl:space-x-2  text-xs xl:text-sm 2xl:text-base text-inherit">
       <NavLink
@@ -116,17 +118,18 @@ function NavList() {
           Home
         </a>
       </NavLink>
-
-      <NavLink
-        to="/add_articles"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "overline  font-bold" : ""
-        }
-      >
-        <a className="flex items-center  py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
-          Add Articles
-        </a>
-      </NavLink>
+      {user && (
+        <NavLink
+          to="/add_articles"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center  py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
+            Add Articles
+          </a>
+        </NavLink>
+      )}
       <NavLink
         to="/articles"
         className={({ isActive, isPending }) =>
@@ -137,47 +140,56 @@ function NavList() {
           All Articles
         </a>
       </NavLink>
-      <NavLink
-        to="/dashboard"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "overline  font-bold" : ""
-        }
-      >
-        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-          Dashboard
-        </a>
-      </NavLink>
-      <NavLink
-        to="/subscriptions"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "overline  font-bold" : ""
-        }
-      >
-        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-          Subscription
-        </a>
-      </NavLink>
 
-      <NavLink
-        to="/my_articles"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "overline  font-bold" : ""
-        }
-      >
-        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-          My Articles
-        </a>
-      </NavLink>
-      <NavLink
-        to="/premium_articles"
-        className={({ isActive, isPending }) =>
-          isPending ? "pending" : isActive ? "overline  font-bold" : ""
-        }
-      >
-        <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-          Premium Articles
-        </a>
-      </NavLink>
+      {user && userData?.role === "admin" && (
+        <NavLink
+          to="/dashboard"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
+            Dashboard
+          </a>
+        </NavLink>
+      )}
+      {user && (
+        <NavLink
+          to="/subscriptions"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
+            Subscription
+          </a>
+        </NavLink>
+      )}
+
+      {user && (
+        <NavLink
+          to="/my_articles"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
+            My Articles
+          </a>
+        </NavLink>
+      )}
+      {user && userData?.Premium && (
+        <NavLink
+          to="/premium_articles"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
+            Premium Articles
+          </a>
+        </NavLink>
+      )}
     </List>
   );
 }

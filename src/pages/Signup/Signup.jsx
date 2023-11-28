@@ -7,6 +7,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Loading from "../../components/Loading/Loading";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -81,7 +82,7 @@ export function SignUp() {
 
     if (res.data.success) {
       createUser(email, password)
-        .then((res) => {
+        .then(() => {
           toast.success("Successfully Registered!", {
             position: "top-center",
             autoClose: 2000,
@@ -112,7 +113,16 @@ export function SignUp() {
             )
             .catch((err) => {
               if (err) {
-                console.log(err.code);
+                toast.error(`${err.code}`, {
+                  position: "top-center",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
                 setCreating(false);
               }
             });
@@ -242,9 +252,10 @@ export function SignUp() {
                       message: "Password should be at least 6 character!",
                     },
                     pattern: {
-                      value: /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).*$/,
+                      value:
+                        /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[0-9]).*$/,
                       message:
-                        "Password should be at least 1 uppercase letter and 1 special character",
+                        "Password should be at least 1 uppercase letter, 1 special character & 1 Number",
                     },
                   })}
                   label="Password"
@@ -258,8 +269,12 @@ export function SignUp() {
                 )}
               </div>
             </div>
-
-            <Btn text="Register"></Btn>
+            <Button
+              type="submit"
+              className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+            >
+              {creating ? <Loading /> : "Register"}
+            </Button>
             <p className="mt-4 text-center font-normal">
               Already have an account?{" "}
               <Link to="/login" className="font-semibold underline text-black">
@@ -271,9 +286,11 @@ export function SignUp() {
             <hr className="border-t-2 border-black w-2/3 mx-auto py-2" />
 
             <Button
-              onClick={() =>
+              onClick={() => {
+                setCreating(true);
                 signG()
                   .then((res) => {
+                    setCreating(false);
                     navigate("/");
                     console.log(res.user.displayName);
                     const user = {
@@ -300,8 +317,8 @@ export function SignUp() {
                       theme: "colored",
                     });
                   })
-                  .catch()
-              }
+                  .catch();
+              }}
               type="submit"
               className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-black hover:text-white hover:bg-black border-black rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
             >

@@ -1,6 +1,5 @@
 import Search from "../../components/Search/Search";
 import { Card } from "../../components/card/Card";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Skeleton from "./../../components/Skeleton/Skeleton";
@@ -57,15 +56,15 @@ const AllArticles = () => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      backgroundColor: "white", // Change the background color
+      backgroundColor: "white",
       borderColor: state.isFocused ? "black" : provided.borderColor,
     }),
     option: (provided, state) => ({
       ...provided,
       backgroundImage: state.isSelected
         ? "linear-gradient(to top right, #58bfff , #01bea5)"
-        : "white", // Change the option background color
-      color: state.isSelected ? "white" : "black", // Change the option text color
+        : "white",
+      color: state.isSelected ? "white" : "black",
     }),
   };
   const handleSubmit = (e) => {
@@ -81,17 +80,6 @@ const AllArticles = () => {
     setSearch(e.target.value);
   };
 
-  // const {
-  //   isPending,
-  //   error,
-  //   data: articlesData,
-  // } = useQuery({
-  //   queryKey: ["allarticles"],
-  //   queryFn: async () => {
-  //     const res = await axiosP.get("/articles");
-  //     return res.data;
-  //   },
-  // });
   return (
     <div>
       <div className="my-12 grid grid-cols-3">

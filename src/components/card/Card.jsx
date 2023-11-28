@@ -1,10 +1,16 @@
 import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useUser from "../../hooks/useUser";
 
 export const Card = ({ data }) => {
   const { _id, publisher, category, image, title, article, publish_date } =
     data;
   const ar = article.slice(0, 80);
+  const axiosP = useAxiosPublic();
+  const { data: user } = useUser();
+  console.log(user);
+  const navigate = useNavigate();
   const pre = category === "premium";
   return (
     <div className=" sm:flex">
@@ -38,19 +44,32 @@ export const Card = ({ data }) => {
           <div className="mt-5 sm:mt-auto">
             <p className="text-xs font-bold  mt-2">{publisher}</p>
             <p className="text-xs  mb-2 ">{publish_date}</p>
-            <Link to={`/article/details/${_id}`}>
+
+            {pre ? (
               <Button
+                disabled={user?.Premium ? false : true}
+                onClick={() => {
+                  navigate(`/article/details/${_id}`);
+                  axiosP.put(`/viewArticle/${_id}`);
+                }}
                 size="sm"
-                variant={pre ? "filled" : "text"}
-                className={`border-b-2 ${
-                  pre
-                    ? "border-[#FFD700] hover:bg-gradient-to-tl from-[#b48811] to-[#FFD700] text-[#FFD700]"
-                    : "hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] border-[#58bfff]  text-[#58bfff] "
-                } mx-auto rounded-none  hover:text-black delay-100 ease-linear duration-200`}
+                className={`border-b-2 border-[#FFD700] hover:bg-gradient-to-tl from-[#b48811] to-[#FFD700] text-[#FFD700]  mx-auto rounded-none  hover:text-black delay-100 ease-linear duration-200`}
               >
                 details
               </Button>
-            </Link>
+            ) : (
+              <Button
+                onClick={() => {
+                  navigate(`/article/details/${_id}`);
+                  axiosP.put(`/viewArticle/${_id}`);
+                }}
+                size="sm"
+                className={`border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] border-[#58bfff]  text-[#58bfff]
+               mx-auto rounded-none  hover:text-black delay-100 ease-linear duration-200`}
+              >
+                details
+              </Button>
+            )}
           </div>
         </div>
       </div>

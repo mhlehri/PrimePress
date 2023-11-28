@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SideContent = () => {
   const axiosP = useAxiosPublic();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["recent"],
     queryFn: async () => {
       const res = await axiosP.get("/recent");
@@ -19,6 +19,10 @@ const SideContent = () => {
         <Link
           key={i}
           to={`/article/details/${d._id}`}
+          onClick={() => {
+            axiosP.put(`/viewArticle/${d._id}`);
+            refetch();
+          }}
           className="flex flex-col items-center  rounded-lg md:max-w-xl "
         >
           <img

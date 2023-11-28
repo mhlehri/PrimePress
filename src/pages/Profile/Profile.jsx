@@ -7,30 +7,22 @@ import {
   Button,
   Input,
 } from "@material-tailwind/react";
-
 import UseAxiosSecure from "../../hooks/UseAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import useAuth from "./../../hooks/useAuth";
-
 import axios from "axios";
 import { toast } from "react-toastify";
+import useUser from "../../hooks/useUser";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Profile = () => {
   const { user, update } = useAuth();
   const axiosS = UseAxiosSecure();
-  const { data: profile } = useQuery({
-    queryKey: ["Profile"],
-    queryFn: async () => {
-      const res = await axiosS.get(`/edit/${user.email}`);
-      return res.data;
-    },
-  });
+  const { profile, isPending } = useUser();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -127,7 +119,7 @@ const Profile = () => {
         <CardFooter className="pt-0">
           <Button
             onClick={handleClickOpen}
-            className=" mx-auto bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear"
+            className=" mx-auto bg-transparent w-full hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear"
           >
             Update your profile
           </Button>

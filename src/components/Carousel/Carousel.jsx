@@ -5,13 +5,13 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Button } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUser from "../../hooks/useUser";
 
 const Carousels = () => {
+  const navigate = useNavigate();
   const axiosP = useAxiosPublic();
-  const { data: user } = useQuery({
-    queryKey: ["userProfile"],
-  });
+  const { data: user } = useUser();
   const { data } = useQuery({
     queryKey: ["trending"],
     queryFn: async () => {
@@ -92,19 +92,31 @@ const Carousels = () => {
                 <p className="w-2/3 opacity-80 text-xs md:text-sm lg:text-base">
                   {des}
                 </p>
-
-                <Button
-                  size="sm"
-                  disabled={pre ? (user?.premium ? false : true) : ""}
-                  variant="filled"
-                  className={` border-b-2 ${
-                    pre
-                      ? "border-[#FFD700] hover:bg-gradient-to-tl from-[#b48811] to-[#FFD700] text-[#FFD700]"
-                      : "hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] border-[#58bfff]  text-[#58bfff] "
-                  } mx-auto  delay-100 rounded-none hover:text-black ease-linear duration-200`}
-                >
-                  details
-                </Button>
+                {pre ? (
+                  <Button
+                    disabled={user?.Premium ? false : true}
+                    onClick={() => {
+                      navigate(`/article/details/${d._id}`);
+                      axiosP.put(`/viewArticle/${d._id}`);
+                    }}
+                    size="sm"
+                    className={`border-b-2 border-[#FFD700] hover:bg-gradient-to-tl from-[#b48811] to-[#FFD700] text-[#FFD700]  mx-auto rounded-none  hover:text-black delay-100 ease-linear duration-200`}
+                  >
+                    details
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      navigate(`/article/details/${d._id}`);
+                      axiosP.put(`/viewArticle/${d._id}`);
+                    }}
+                    size="sm"
+                    className={`border-b-2 hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] border-[#58bfff]  text-[#58bfff]
+               mx-auto rounded-none  hover:text-black delay-100 ease-linear duration-200`}
+                  >
+                    details
+                  </Button>
+                )}
               </div>
             </div>
           );

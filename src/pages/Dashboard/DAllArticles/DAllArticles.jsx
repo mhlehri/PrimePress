@@ -119,6 +119,11 @@ export function Tables() {
                                     showCancelButton: true,
                                   }).then((result) => {
                                     if (result.isConfirmed) {
+                                      axiosP
+                                        .put(`/updateCategory/${row._id}`)
+                                        .then(() => {
+                                          refetch();
+                                        });
                                       Swal.fire({
                                         title: "Done!",
                                         text: `(${row.title}) is now Premium.`,

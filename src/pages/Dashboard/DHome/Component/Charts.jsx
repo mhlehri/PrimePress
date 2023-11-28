@@ -47,7 +47,12 @@ export function Charts() {
           data={data}
           options={options}
           width={"100%"}
-          loader={<div>Loading Chart</div>}
+          loader={
+            <div className="text-center">
+              Chart loading...
+              <Loading />
+            </div>
+          }
           height={"400px"}
         />
       )}
@@ -87,7 +92,12 @@ export function BarCharts() {
           chartType="ColumnChart"
           options={options1}
           width="100%"
-          loader={<div>Loading Chart</div>}
+          loader={
+            <div className="text-center">
+              Chart loading...
+              <Loading />
+            </div>
+          }
           height="400px"
           data={barData}
         />
@@ -142,7 +152,12 @@ export function AreaChart() {
         <Chart
           chartType="AreaChart"
           width="100%"
-          loader={<div>Loading Chart</div>}
+          loader={
+            <div className="text-center">
+              Chart loading...
+              <Loading />
+            </div>
+          }
           height="400px"
           data={AreaData}
           options={options2}

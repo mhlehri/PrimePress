@@ -16,6 +16,8 @@ import DAllUsers from "./pages/Dashboard/DAllUsers/DAllUsers";
 import DAllArticles from "./pages/Dashboard/DAllArticles/DAllArticles";
 import DAddPublisher from "./pages/Dashboard/DAddPublisher/DAddPublisher";
 import MyArticles from "./pages/MyArticles/MyArticles";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/add_articles",
-        element: <AddArticles />,
+        element: (
+          <PrivateRoute>
+            <AddArticles />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/articles",
@@ -37,23 +43,43 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <AdminLayout />,
+        element: (
+          <PrivateRoute>
+            <AdminLayout />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/subscriptions",
-        element: <div>subscriptions</div>,
+        element: (
+          <PrivateRoute>
+            <div>sub</div>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my_articles",
-        element: <MyArticles />,
+        element: (
+          <PrivateRoute>
+            <MyArticles />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/premium_articles",
-        element: <PremiumArticles />,
+        element: (
+          <PrivateRoute>
+            <PremiumArticles />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile/:user",
-        element: <Profile />,
+        element: (
+          <PrivateRoute>
+            <Profile />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/article/details/:id",
@@ -63,23 +89,43 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <AdminLayout />,
+    element: (
+      <AdminRoute>
+        <AdminLayout />
+      </AdminRoute>
+    ),
     children: [
       {
         path: "/dashboard",
-        element: <DHome />,
+        element: (
+          <AdminRoute>
+            <DHome />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all users",
-        element: <DAllUsers />,
+        element: (
+          <AdminRoute>
+            <DAllUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/all articles",
-        element: <DAllArticles />,
+        element: (
+          <AdminRoute>
+            <DAllArticles />
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/add publisher",
-        element: <DAddPublisher />,
+        element: (
+          <AdminRoute>
+            <DAddPublisher />
+          </AdminRoute>
+        ),
       },
     ],
   },
