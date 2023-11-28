@@ -103,7 +103,37 @@ export function Tables() {
                             {column.id === "image" || column.id === "Aimage" ? (
                               <img width={100} height={100} src={value} />
                             ) : column.id === "premium" ? (
-                              <Button variant="filled" color="orange">
+                              <Button
+                                disabled={
+                                  row.category === "premium" ? true : false
+                                }
+                                onClick={() => {
+                                  Swal.fire({
+                                    title: "Are you sure?",
+                                    text: `Your gonna make (${row.title}) to Premium.`,
+                                    color: "teal",
+                                    icon: "question",
+                                    confirmButtonColor: "teal",
+                                    iconColor: "teal",
+                                    background: "#bee6e1",
+                                    showCancelButton: true,
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      Swal.fire({
+                                        title: "Done!",
+                                        text: `(${row.title}) is now Premium.`,
+                                        icon: "success",
+                                        color: "teal",
+                                        confirmButtonColor: "teal",
+                                        iconColor: "teal",
+                                        background: "#bee6e1",
+                                      });
+                                    }
+                                  });
+                                }}
+                                variant="filled"
+                                color="orange"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -120,7 +150,47 @@ export function Tables() {
                                 </svg>
                               </Button>
                             ) : column.id === "approve" ? (
-                              <Button variant="contained" color="green">
+                              <Button
+                                disabled={
+                                  row.status === "approved" ||
+                                  row.status === "declined"
+                                    ? true
+                                    : false
+                                }
+                                onClick={() => {
+                                  Swal.fire({
+                                    title: "Are you sure?",
+                                    color: "teal",
+                                    icon: "question",
+                                    confirmButtonColor: "teal",
+                                    iconColor: "teal",
+                                    background: "#bee6e1",
+                                    showCancelButton: true,
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      axiosP
+                                        .put(`/reason/${row._id}`, {
+                                          message: "Excellent Work!",
+                                          status: "approved",
+                                        })
+                                        .then(() => {
+                                          refetch();
+                                        });
+
+                                      Swal.fire({
+                                        title: "Approved!",
+                                        icon: "success",
+                                        color: "teal",
+                                        confirmButtonColor: "teal",
+                                        iconColor: "teal",
+                                        background: "#bee6e1",
+                                      });
+                                    }
+                                  });
+                                }}
+                                variant="contained"
+                                color="green"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -138,6 +208,12 @@ export function Tables() {
                               </Button>
                             ) : column.id === "decline" ? (
                               <Button
+                                disabled={
+                                  row.status === "approved" ||
+                                  row.status === "declined"
+                                    ? true
+                                    : false
+                                }
                                 onClick={() => {
                                   Swal.fire({
                                     title: "Enter the reason",
@@ -154,9 +230,14 @@ export function Tables() {
                                   }).then((result) => {
                                     if (result.isConfirmed) {
                                       const message = result.value;
-                                      axiosP.put(`/reason/${row._id}`, {
-                                        message,
-                                      });
+                                      axiosP
+                                        .put(`/reason/${row._id}`, {
+                                          message,
+                                          status: "declined",
+                                        })
+                                        .then(() => {
+                                          refetch();
+                                        });
                                       Swal.fire({
                                         title: "Deleted!",
                                         text: "Your article has been deleted.",

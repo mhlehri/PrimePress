@@ -13,6 +13,7 @@ import { Button } from "@material-tailwind/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
+import Swal from "sweetalert2";
 
 const MyArticles = () => {
   return (
@@ -43,8 +44,9 @@ export function Tables() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const axiosS = UseAxiosSecure();
+  const axiosP = UseAxiosSecure();
   const { user } = useAuth();
-  const { data, isPending } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: ["myArticles", user?.email],
     queryFn: async () => {
       const res = await axiosS.get(`/myArticles/${user?.email}`);
@@ -108,7 +110,14 @@ export function Tables() {
                               (i + 1).toString().padStart(2, "0")
                             ) : column.id === "view" ? (
                               <Link to={`/article/details/${row._id}`}>
-                                <Button variant="contained" color="teal">
+                                <Button
+                                  onClick={() => {
+                                    axiosP.put(`/viewArticle/${row._id}`);
+                                    console.log("view bere gece");
+                                  }}
+                                  variant="contained"
+                                  color="teal"
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -148,7 +157,41 @@ export function Tables() {
                                 </svg>
                               </Button>
                             ) : column.id === "delete" ? (
-                              <Button variant="filled" color="red">
+                              <Button
+                                onClick={() => {
+                                  Swal.fire({
+                                    title: "Are you sure?",
+                                    text: "You won't be able to revert this!",
+                                    color: "teal",
+                                    icon: "question",
+                                    iconColor: "teal",
+                                    background: "#bee6e1",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "teal",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes! Sure",
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      axiosP
+                                        .delete(`/deleteArticle/${row._id}`)
+                                        .then(() => {
+                                          refetch();
+                                        });
+                                      Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your article has been deleted.",
+                                        icon: "success",
+                                        color: "teal",
+                                        confirmButtonColor: "teal",
+                                        iconColor: "teal",
+                                        background: "#bee6e1",
+                                      });
+                                    }
+                                  });
+                                }}
+                                variant="filled"
+                                color="red"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"

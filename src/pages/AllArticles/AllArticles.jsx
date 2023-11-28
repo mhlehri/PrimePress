@@ -143,9 +143,6 @@ const AllArticles = () => {
         </InfiniteScroll>
       ) : (
         <div className="h-[50vh] w-full flex flex-col justify-center items-center ]">
-          <h1>
-            <span className="font-bold">Result:</span> {search}
-          </h1>
           <h1 className="text-9xl font-extrabold text-black tracking-widest">
             404
           </h1>
