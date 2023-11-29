@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Card, Input, Button } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-import Btn from "../../components/Btn/Btn";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useState } from "react";
 import Loading from "../../components/Loading/Loading";
+import { useEffect } from "react";
 
 export function SignIn() {
+  useEffect(() => {
+    window.document.title = "PrimePress | SingIn";
+  }, []);
   const { signIn, signG } = useAuth();
   const [logging, setLogging] = useState(false);
   const axiosP = useAxiosPublic();
@@ -123,12 +126,20 @@ export function SignIn() {
                 )}
               </div>
             </div>
-            <Button
-              type="submit"
-              className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
-            >
-              {logging ? <Loading /> : "Login"}
-            </Button>
+            {logging ? (
+              <Button
+                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0  delay-75 ease-linear`}
+              >
+                <Loading />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+              >
+                Login
+              </Button>
+            )}
             <p className="mt-4 text-center font-normal">
               Don't have an account?{" "}
               <Link to="/signUp" className="underline font-semibold text-black">

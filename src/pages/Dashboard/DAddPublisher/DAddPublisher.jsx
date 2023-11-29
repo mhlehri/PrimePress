@@ -1,19 +1,25 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Btn from "../../../components/Btn/Btn";
-import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { toast } from "react-toastify";
+import Loading from "../../../components/Loading/Loading";
+import { Button } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const DAddPublisher = () => {
-  const { user } = useAuth();
+  useEffect(() => {
+    window.document.title = "PP Dashboard | Add Publishers";
+  }, []);
+
   const axiosP = useAxiosPublic();
+  const [adding, setAdding] = useState(false);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setAdding(true);
     const publisher = data.publisher;
     const image = data.image[0];
     const res = await axios.post(
@@ -32,8 +38,8 @@ const DAddPublisher = () => {
       };
       axiosP
         .post("/addPublishers", Data)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          setAdding(false);
           toast.success("Successfully added!", {
             position: "top-center",
             autoClose: 2000,
@@ -47,19 +53,24 @@ const DAddPublisher = () => {
           e.target.publisher.value = "";
           e.target.image.value = "";
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          setAdding(false);
         });
-      console.log(Data);
     }
   };
 
   return (
     <div className="text-black w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
-      <h1 className="text-2xl font-bold my-6 text-center">
-        Add New Publishers
+      <h1
+        style={{ textShadow: "2px 2px 1px black" }}
+        className="mb-5 font-bold text-4xl text-white"
+      >
+        Add New publishers
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] p-8 rounded-lg"
+      >
         <div className="mb-5">
           <label
             htmlFor="publisher"
@@ -93,7 +104,20 @@ const DAddPublisher = () => {
           />
         </div>
 
-        <Btn text="Add"></Btn>
+        {adding ? (
+          <Button
+            className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0  delay-75 ease-linear`}
+          >
+            <Loading />
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+          >
+            add
+          </Button>
+        )}
       </form>
     </div>
   );

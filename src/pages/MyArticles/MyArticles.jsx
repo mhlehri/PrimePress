@@ -10,12 +10,15 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@material-tailwind/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
 
 const MyArticles = () => {
+  useEffect(() => {
+    window.document.title = "PrimePress | My Articles";
+  }, []);
   return (
     <div className="my-28">
       <h1 className="text-center mb-6 font-bold text-3xl">Your All Articles</h1>
@@ -44,7 +47,6 @@ export function Tables() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const axiosS = UseAxiosSecure();
-  const axiosP = UseAxiosSecure();
   const { user } = useAuth();
   const { data, isPending, refetch } = useQuery({
     queryKey: ["myArticles", user?.email],

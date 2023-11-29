@@ -24,13 +24,13 @@ export const Card = ({ data }) => {
       <div
         className={`flex flex-wrap hover:shadow-md w-2/3 ${
           pre
-            ? "bg-[url('https://i.ibb.co/rxS93Wt/405426625-765733015364905-7569901237009012825-n.gif')]  bg-no-repeat bg-contain bg-center"
+            ? "bg-[url('https://i.ibb.co/16Gbn4F/Animation-1701275148102.gif')]  bg-no-repeat bg-contain bg-center"
             : ""
         }`}
       >
         <div
           className={`p-4 flex flex-col h-full sm:p-7   ${
-            pre ? "text-[#FFD700] bg-black/70" : "text-gray-700"
+            pre ? "text-[#FFD700] bg-black/80" : "text-gray-700"
           }`}
         >
           <h3

@@ -4,9 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-  font-family: "barlow-semi-condensed";
-} */
+body,
 * {
+  scroll-behavior: smooth;
   font-family: "Inconsolata", monospace;
 }

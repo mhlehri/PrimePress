@@ -8,11 +8,15 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Loading from "../../components/Loading/Loading";
+import { useEffect } from "react";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 export function SignUp() {
+  useEffect(() => {
+    window.document.title = "PrimePress | SignUp";
+  }, []);
   const axiosP = useAxiosPublic();
   const {
     register,
@@ -269,12 +273,22 @@ export function SignUp() {
                 )}
               </div>
             </div>
-            <Button
-              type="submit"
-              className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
-            >
-              {creating ? <Loading /> : "Register"}
-            </Button>
+
+            {creating ? (
+              <Button
+                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0  delay-75 ease-linear`}
+              >
+                <Loading />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+              >
+                Register
+              </Button>
+            )}
+
             <p className="mt-4 text-center font-normal">
               Already have an account?{" "}
               <Link to="/login" className="font-semibold underline text-black">

@@ -5,7 +5,6 @@ import { SignIn } from "./pages/Signin/Signin";
 import { SignUp } from "./pages/Signup/Signup";
 import Error from "./pages/Error/Error";
 import Home from "./pages/Home/Home";
-import Profile from "./pages/Profile/Profile";
 import AddArticles from "./pages/AddArticles/AddArticles";
 import AllArticles from "./pages/AllArticles/AllArticles";
 import Details from "./pages/Details/Details";
@@ -18,6 +17,9 @@ import DAddPublisher from "./pages/Dashboard/DAddPublisher/DAddPublisher";
 import MyArticles from "./pages/MyArticles/MyArticles";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import Subscription from "./pages/Subscription/Subscription";
+import PremiumRoute from "./PremiumRoute";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +47,7 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
           <PrivateRoute>
-            <AdminLayout />,
+            <AdminLayout />
           </PrivateRoute>
         ),
       },
@@ -53,7 +55,7 @@ const router = createBrowserRouter([
         path: "/subscriptions",
         element: (
           <PrivateRoute>
-            <div>sub</div>
+            <Subscription />
           </PrivateRoute>
         ),
       },
@@ -69,7 +71,9 @@ const router = createBrowserRouter([
         path: "/premium_articles",
         element: (
           <PrivateRoute>
-            <PremiumArticles />
+            <PremiumRoute>
+              <PremiumArticles />
+            </PremiumRoute>
           </PrivateRoute>
         ),
       },
@@ -77,7 +81,7 @@ const router = createBrowserRouter([
         path: "/profile/:user",
         element: (
           <PrivateRoute>
-            <Profile />,
+            <Profile />
           </PrivateRoute>
         ),
       },

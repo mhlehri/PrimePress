@@ -9,8 +9,10 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Typography from "@mui/joy/Typography";
 import Check from "@mui/icons-material/Check";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { useNavigate } from "react-router-dom";
 
 export default function Cards({ colors, btn, price, duration }) {
+  const navigate = useNavigate();
   return (
     <div>
       <Card size="lg" variant="soft">
@@ -26,25 +28,25 @@ export default function Cards({ colors, btn, price, duration }) {
             <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-            Virtual Credit Cards
+            Exclusive Content
           </ListItem>
           <ListItem>
             <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-            Financial Analytics
+            Extended Interviews
           </ListItem>
           <ListItem>
             <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-            Checking Account
+            Detailed Reports
           </ListItem>
           <ListItem>
             <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-            API Integration
+            Exclusive Events
           </ListItem>
         </List>
         <Divider inset="none" />
@@ -63,11 +65,13 @@ export default function Cards({ colors, btn, price, duration }) {
             </Typography>
           </Typography>
           <Button
+            onClick={() => {
+              navigate("/subscriptions");
+            }}
             variant="soft"
             sx={{
               borderBottom: "#58bfff solid",
               borderRadius: 0,
-              color: "black",
               "&:hover": {
                 backgroundImage:
                   "linear-gradient(to top right, #58bfff , #01bea5)",

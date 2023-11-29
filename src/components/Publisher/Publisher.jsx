@@ -9,27 +9,14 @@ export default function BioCard() {
   const { data } = useAllPublishers();
   return (
     <div>
-      <div className="my-10 w-1/2 mx-auto text-center">
-        <h1
-          style={{
-            fontSize: "30px",
-            fontWeight: "bold",
-          }}
-        >
-          All Our Publishers
-        </h1>
+      <div className="my-10 w-2/3 lg:w-1/2 mx-auto text-center">
+        <h1 className="text-3xl font-bold">All Our Publishers</h1>
         <p className="opacity-70">
           Discover the Minds Behind the Stories: Unveiling the Brilliance of Our
           Dedicated and Intelligent Publishers
         </p>
       </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "20px",
-        }}
-      >
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data?.map((bio, inx) => {
           return (
             <Card key={inx} sx={{ minHeight: "300px" }}>

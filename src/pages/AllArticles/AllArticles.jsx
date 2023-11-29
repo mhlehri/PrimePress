@@ -6,6 +6,7 @@ import Skeleton from "./../../components/Skeleton/Skeleton";
 import { useState } from "react";
 import Select from "react-select";
 import useAllPublishers from "../../hooks/useAllPublishers";
+import { useEffect } from "react";
 
 const options = [
   { value: "", label: "All Tags" },
@@ -19,6 +20,9 @@ const options = [
 ];
 
 const AllArticles = () => {
+  useEffect(() => {
+    window.document.title = "PrimePress | All Articles";
+  }, []);
   const { data: publishers } = useAllPublishers();
   const options1 = [{ value: "", label: "All Publisers" }];
   publishers?.map((p) => {

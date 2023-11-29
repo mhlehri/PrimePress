@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Btn from "../../components/Btn/Btn";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
@@ -7,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useAllPublishers from "../../hooks/useAllPublishers";
 import { toast } from "react-toastify";
+import { Button } from "@material-tailwind/react";
+import Loading from "../../components/Loading/Loading";
 const options1 = [
   { value: "Politics", label: "Politics" },
   { value: "Business", label: "Business" },
@@ -33,6 +34,9 @@ const customStyles = {
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddArticles = () => {
+  useEffect(() => {
+    window.document.title = "PrimePress | Add Articles";
+  }, []);
   const { user } = useAuth();
   const axiosP = useAxiosPublic();
   const { data: publishers } = useAllPublishers();
@@ -44,13 +48,12 @@ const AddArticles = () => {
   const { register, handleSubmit } = useForm();
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedTags, setSelectedTags] = useState(null);
+  const [publishing, setPublishing] = useState(false);
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    // const form = e.target;
+    setPublishing(true);
     const image = data.image[0];
-    // const category = data.category;
-    // const tags = data.tags;
     const title = data.title;
     const article = data.article;
     let publisher = e.target.publisher.value;
@@ -79,7 +82,8 @@ const AddArticles = () => {
       };
       axiosP
         .post("/addArticle", Info)
-        .then((res) => {
+        .then(() => {
+          setPublishing(false);
           e.target.reset();
           toast.success("Successfully Inserted!", {
             position: "top-center",
@@ -94,6 +98,7 @@ const AddArticles = () => {
         })
         .catch((err) => {
           console.log(err);
+          setPublishing(false);
         });
       console.log(Info);
     }
@@ -101,13 +106,21 @@ const AddArticles = () => {
 
   return (
     <div className="text-black w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
-      <h1 className="text-2xl font-bold my-6 text-center">Add New Articles</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h1
+        style={{ textShadow: "2px 2px 1px black" }}
+        className="mb-5 font-bold text-4xl text-white"
+      >
+        Add New Articles
+      </h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] p-8 rounded-lg drop-shadow-2xl"
+      >
         <div className="grid gap-4 mb-6 md:grid-cols-2">
           <div>
             <label
               htmlFor="title"
-              className="block mb-2  text-sm font-medium text-gray-900"
+              className="block mb-2  text-sm font-medium text-white"
             >
               Title
             </label>
@@ -123,7 +136,7 @@ const AddArticles = () => {
           <div>
             <label
               htmlFor="image"
-              className="block mb-2  text-sm font-medium text-gray-900"
+              className="block mb-2  text-sm font-medium text-white"
             >
               Image
             </label>
@@ -132,12 +145,12 @@ const AddArticles = () => {
               type="file"
               {...register("image")}
               placeholder="article title here"
-              className="py-2 file:hidden px-4 block outline-blue-400  w-full border border-gray-400 rounded-lg text-sm "
+              className="py-2 file:hidden px-4 block outline-blue-400 bg-white text-gray-500  w-full border border-gray-400 rounded-lg text-sm "
               required
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900">
+            <label className="block mb-2 text-sm font-medium text-white">
               Tags
             </label>
             <Select
@@ -152,7 +165,7 @@ const AddArticles = () => {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-900">
+            <label className="block mb-2 text-sm font-medium text-white">
               Publishers
             </label>
             <Select
@@ -170,7 +183,7 @@ const AddArticles = () => {
 
         <label
           htmlFor="article"
-          className="block mb-2  text-sm font-medium text-gray-900"
+          className="block mb-2  text-sm font-medium text-white"
         >
           Article
         </label>
@@ -181,7 +194,20 @@ const AddArticles = () => {
           {...register("article")}
           placeholder="write article here"
         ></textarea>
-        <Btn text="Publish"></Btn>
+        {publishing ? (
+          <Button
+            className={`mx-auto flex items-center gap-3  justify-center   bg-transparent   rounded-none  outline outline-2 outline-white   hover:scale-105 py-0  delay-75 ease-linear`}
+          >
+            <Loading />
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-white hover:text-black hover:bg-white border-white rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
+          >
+            publish
+          </Button>
+        )}
       </form>
     </div>
   );

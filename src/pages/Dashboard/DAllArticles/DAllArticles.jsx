@@ -8,11 +8,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import useUsers from "../../../hooks/useUsers";
 import { Button } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Loading from "../../../components/Loading/Loading";
+import { useEffect } from "react";
 
 const columns = [
   { id: "title", label: "Title", minWidth: 170 },
@@ -144,7 +144,7 @@ export function Tables() {
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
-                                  stroke="currentColor"
+                                  stroke="black"
                                   className="w-4 h-4"
                                 >
                                   <path
@@ -194,7 +194,7 @@ export function Tables() {
                                   });
                                 }}
                                 variant="contained"
-                                color="green"
+                                color="teal"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -256,14 +256,14 @@ export function Tables() {
                                   });
                                 }}
                                 variant="contained"
-                                color="red"
+                                color="blue"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
-                                  stroke="currentColor"
+                                  stroke="black"
                                   className="w-4 h-4"
                                 >
                                   <path
@@ -307,14 +307,14 @@ export function Tables() {
                                   });
                                 }}
                                 variant="contained"
-                                color="default"
+                                color="red"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
-                                  stroke="currentColor"
+                                  stroke="black"
                                   className="w-4 h-4"
                                 >
                                   <path
@@ -357,7 +357,20 @@ export function Tables() {
 }
 
 const DAllArticles = () => {
-  return <Tables />;
+  useEffect(() => {
+    window.document.title = "PP Dashboard | All Articles";
+  }, []);
+  return (
+    <>
+      <h1
+        style={{ textShadow: "2px 2px 1px black" }}
+        className="mb-5 font-bold text-4xl text-white"
+      >
+        All Articles
+      </h1>
+      <Tables />
+    </>
+  );
 };
 
 export default DAllArticles;

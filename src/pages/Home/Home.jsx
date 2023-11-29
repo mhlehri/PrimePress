@@ -13,7 +13,6 @@ const Home = () => {
 
   useEffect(() => {
     window.document.title = "PrimePress | Home";
-    // Check if the alert has been shown before
     const hasAlertBeenShown = sessionStorage.getItem("hasAlertBeenShown");
     if (!hasAlertBeenShown) {
       const timeoutId = setTimeout(() => {
@@ -46,37 +45,43 @@ const Home = () => {
   }
 
   return (
-    <div className="space-y-56 mb-28">
+    <div className="lg:space-y-56 mb-28 lg:px-0 px-5">
       <div className="grid grid-cols-12">
-        <div className="col-span-8">
+        <div className="col-span-12 lg:col-span-8">
           <Carousels />
         </div>
-        <div className="col-span-1"></div>
-        <div className="col-span-3 ">
+        <div className="lg:col-span-1"></div>
+        <div className="col-span-12 lg:col-span-3 mt-4">
           <SideContent />
         </div>
       </div>
       <BioCard />
       <Stats />
-      <div className="grid grid-cols-3 my-20 gap-4">
-        <PriceCard
-          colors="#0174BE"
-          price={5}
-          btn="Quick Package"
-          duration="1 minute"
-        ></PriceCard>
-        <PriceCard
-          colors="teal"
-          price={30}
-          btn="Sliver Package"
-          duration="5 days"
-        ></PriceCard>
-        <PriceCard
-          btn="Golden Package"
-          colors="orange"
-          price={50}
-          duration="10 days"
-        ></PriceCard>
+
+      <div>
+        <h1 className="text-3xl font-bold mb-5 lg:mb-12 text-center">
+          Our Premium Packages
+        </h1>
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20 gap-12">
+          <PriceCard
+            colors="#0174BE"
+            price={5}
+            btn="Quick Package"
+            duration="1 minute"
+          ></PriceCard>
+          <PriceCard
+            colors="teal"
+            price={30}
+            btn="Sliver Package"
+            duration="5 days"
+          ></PriceCard>
+          <PriceCard
+            btn="Golden Package"
+            colors="orange"
+            price={50}
+            duration="10 days"
+          ></PriceCard>
+        </div>
       </div>
       <StayConnected />
       <ListenPodcast />

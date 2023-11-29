@@ -16,10 +16,14 @@ import useAuth from "./../../hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
 import useUser from "../../hooks/useUser";
+import { useEffect } from "react";
 
-const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const Profile = () => {
+  const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+  useEffect(() => {
+    window.document.title = "PrimePress | Profile";
+  }, []);
   const { user, update } = useAuth();
   const axiosS = UseAxiosSecure();
   const { profile, isPending } = useUser();

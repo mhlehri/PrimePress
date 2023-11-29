@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
-import Search from "../../components/Search/Search";
 import { Card } from "../../components/card/Card";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import Selects from "../../shared/Selects/Selects";
 import { useQuery } from "@tanstack/react-query";
-import Select from "react-select";
 import Skeleton from "./../../components/Skeleton/Skeleton";
+import useUser from "../../hooks/useUser";
+import { useEffect } from "react";
 
 const PremiumArticles = () => {
+  useEffect(() => {
+    window.document.title = "PrimePress | Premium Articles";
+  }, []);
   const axiosP = useAxiosPublic();
+  const { data: userInfo } = useUser();
   const { isPending, data: premium } = useQuery({
-    queryKey: ["premium"],
+    queryKey: ["premium", userInfo?.Premium],
     queryFn: async () => {
       const res = await axiosP.get(`/premium`);
       return res.data;
