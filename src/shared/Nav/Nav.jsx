@@ -105,7 +105,6 @@ function NavListMenu() {
 function NavList() {
   const { user } = useAuth();
   const { data: userData } = useUser();
-  console.log(userData);
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row  te items-center xl:space-x-1   2xl:space-x-2  text-xs xl:text-sm 2xl:text-base text-inherit">
       <NavLink

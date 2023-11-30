@@ -30,7 +30,6 @@ const DAddPublisher = () => {
       }
     );
     const img = res.data.data.display_url;
-    console.log(img);
     if (res.data.success) {
       const Data = {
         publisher,
@@ -74,7 +73,7 @@ const DAddPublisher = () => {
         <div className="mb-5">
           <label
             htmlFor="publisher"
-            className="block mb-2 text-sm font-medium text-gray-900"
+            className="block mb-2 text-sm font-medium text-white"
           >
             Publisher Name
           </label>
@@ -90,7 +89,7 @@ const DAddPublisher = () => {
         <div className="mb-5">
           <label
             htmlFor="image"
-            className="block mb-2  text-sm font-medium text-gray-900"
+            className="block mb-2  text-sm font-medium text-white"
           >
             Publisher Image
           </label>
@@ -99,7 +98,7 @@ const DAddPublisher = () => {
             type="file"
             {...register("image")}
             placeholder="article title here"
-            className="py-2 file:hidden px-4 block outline-blue-400  w-full border border-gray-400 rounded-lg text-sm "
+            className="py-2 file:hidden px-4 block outline-blue-400 bg-white  w-full border border-gray-400 rounded-lg text-sm "
             required
           />
         </div>
@@ -113,9 +112,9 @@ const DAddPublisher = () => {
         ) : (
           <Button
             type="submit"
-            className={`mx-auto flex items-center gap-3  justify-center   bg-transparent hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] text-black  hover:text-white  rounded-none  outline outline-2    hover:outline-none hover:scale-105  delay-75 ease-linear`}
+            className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-white hover:text-black hover:bg-white border-white rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
           >
-            add
+            Add
           </Button>
         )}
       </form>

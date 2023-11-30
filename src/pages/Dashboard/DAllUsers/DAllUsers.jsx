@@ -36,7 +36,6 @@ export function Tables() {
 
   const { data, refetch, isPending } = useUsers();
   const axiosP = useAxiosPublic();
-  console.log(data);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

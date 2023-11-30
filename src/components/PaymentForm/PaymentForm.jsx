@@ -60,13 +60,11 @@ const CheckoutForm = () => {
 
   const price = 100;
   const { user } = useAuth();
-  console.log(new Date().getTime() + exp);
-  console.log(moment(new Date(1701289558990).getTime()).format());
+
   useEffect(() => {
     axiosS
       .post("/createPaymentIntent", { price })
       .then((res) => {
-        console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       })
       .catch((err) => console.log(err));
@@ -88,10 +86,8 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log("payment error", error);
       setError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
       setError("");
     }
     //? confirm Payment
@@ -108,10 +104,8 @@ const CheckoutForm = () => {
     if (confirmError) {
       console.log("confirm error", confirmError);
     } else {
-      console.log("payment Intent", paymentIntent);
       if (paymentIntent.status == "succeeded") {
         const expDate = new Date().getTime() + exp;
-        console.log("ok");
         axiosS.put(`/updateUserPremium/${user?.email}`, {
           isPremium: true,
           _Exp: expDate,

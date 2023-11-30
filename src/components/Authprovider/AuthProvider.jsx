@@ -86,7 +86,6 @@ const AuthProvider = ({ children }) => {
     signG,
     signO,
   };
-  console.log(user);
 
   return (
     <AuthContext.Provider value={userInformation}>

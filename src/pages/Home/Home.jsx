@@ -23,12 +23,12 @@ const Home = () => {
     }
   }, [showAlert]);
 
-  console.log(showAlert);
   {
     showAlert ? (
       <>
         {Swal.fire({
-          title: "<strong>Read <u>Premium Articles</u></strong>",
+          title:
+            "<strong>Read <u><a class='hover:text-red-200' href='/subscriptions'>Premium Articles</a><u></strong>",
           icon: "info",
           html: `
     Buy Our <a href="/subscriptions" class="bg-teal-800 text-white rounded-lg px-2 hover:bg-orange-400 hover:text-black">Premium</a> Subscription

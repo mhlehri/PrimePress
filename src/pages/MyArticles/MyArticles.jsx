@@ -11,9 +11,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Button } from "@material-tailwind/react";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const MyArticles = () => {
   useEffect(() => {
@@ -34,20 +35,20 @@ const columns = [
   { id: "title", label: "Title", minWidth: 170 },
   { id: "publish_date", label: "Posted Date", minWidth: 170 },
   { id: "status", label: "status" },
+  { id: "category", label: "isPremium" },
+  { id: "message", label: "Admin Message" },
   { id: "view", label: "View Details", align: "center" },
   { id: "Edit", label: "Edit", align: "center" },
   { id: "delete", label: "Delete", align: "center" },
 ];
 
-function createData(title, Aemail, Aname, Aimage, publish_date, status) {
-  return { title, Aemail, Aname, Aimage, publish_date, status };
-}
-
 export function Tables() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const axiosS = UseAxiosSecure();
+  const axiosP = useAxiosPublic();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const { data, isPending, refetch } = useQuery({
     queryKey: ["myArticles", user?.email],
     queryFn: async () => {
@@ -55,7 +56,6 @@ export function Tables() {
       return res.data;
     },
   });
-  console.log(data);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -94,7 +94,6 @@ export function Tables() {
               data
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, i) => {
-                  const pre = row.category === "premium";
                   return (
                     <TableRow
                       hover
@@ -115,7 +114,6 @@ export function Tables() {
                                 <Button
                                   onClick={() => {
                                     axiosP.put(`/viewArticle/${row._id}`);
-                                    console.log("view bere gece");
                                   }}
                                   variant="contained"
                                   color="teal"
@@ -142,7 +140,14 @@ export function Tables() {
                                 </Button>
                               </Link>
                             ) : column.id === "Edit" ? (
-                              <Button variant="contained" color="green">
+                              <Button
+                                onClick={() =>
+                                  navigate(`/article/edit/${row._id}`)
+                                }
+                                disabled={row?.status === "declined"}
+                                variant="contained"
+                                color="green"
+                              >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -220,7 +225,7 @@ export function Tables() {
                 })
             ) : (
               <TableRow>
-                <TableCell colSpan={7} align="center">
+                <TableCell colSpan={8} align="center">
                   No Data Available
                 </TableCell>
               </TableRow>

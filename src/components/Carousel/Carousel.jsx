@@ -99,7 +99,9 @@ const Carousels = () => {
                   </p>
                   {pre ? (
                     <Button
-                      disabled={user?.Premium ? false : true}
+                      disabled={
+                        user?.Premium || user?.email === d.Aemail ? false : true
+                      }
                       onClick={() => {
                         navigate(`/article/details/${d._id}`);
                         axiosP.put(`/viewArticle/${d._id}`);

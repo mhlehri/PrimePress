@@ -235,17 +235,18 @@ export function Tables() {
                                   }).then((result) => {
                                     if (result.isConfirmed) {
                                       const message = result.value;
+                    
                                       axiosP
                                         .put(`/reason/${row._id}`, {
-                                          message,
+                                          message: message,
                                           status: "declined",
                                         })
                                         .then(() => {
                                           refetch();
                                         });
                                       Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your article has been deleted.",
+                                        title: "Declined!",
+                                        text: "The article has been declined.",
                                         icon: "success",
                                         color: "teal",
                                         confirmButtonColor: "teal",

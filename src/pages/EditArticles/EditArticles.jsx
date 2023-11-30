@@ -8,7 +8,8 @@ import useAllPublishers from "../../hooks/useAllPublishers";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import Loading from "../../components/Loading/Loading";
-import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
 const options1 = [
   { value: "Politics", label: "Politics" },
   { value: "Business", label: "Business" },
@@ -16,7 +17,6 @@ const options1 = [
   { value: "Sports", label: "Sports" },
   { value: "Science", label: "Science" },
   { value: "Health", label: "Health" },
-  { value: "Education", label: "Education" },
   { value: "Entertainment", label: "Entertainment" },
 ];
 const customStyles = {
@@ -35,25 +35,31 @@ const customStyles = {
 };
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const AddArticles = () => {
+
+const EditArticles = () => {
   useEffect(() => {
     window.document.title = "PrimePress | Add Articles";
   }, []);
-  const { user } = useAuth();
+  const { id } = useParams();
+  const navigate = useNavigate();
   const axiosP = useAxiosPublic();
   const { data: publishers } = useAllPublishers();
+
   const options2 = [];
   publishers?.map((p) => {
     options2.push({ value: p.publisher, label: p.publisher });
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedTags, setSelectedTags] = useState(null);
   const [publishing, setPublishing] = useState(false);
+  const { data: singleArticle, refetch } = useQuery({
+    queryKey: ["singleArticle1", id],
+    queryFn: async () => {
+      const res = await axiosP.get(`/singleArticle/${id}`);
+      return res.data;
+    },
+  });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
@@ -64,34 +70,62 @@ const AddArticles = () => {
     let publisher = e.target.publisher.value;
     let tags = e.target.tag.value;
 
-    const res = await axios.post(
-      image_hosting_api,
-      { image },
-      {
-        headers: { "content-type": "multipart/form-data" },
+    if (image !== "undefined") {
+      const res = await axios.post(
+        image_hosting_api,
+        { image },
+        {
+          headers: { "content-type": "multipart/form-data" },
+        }
+      );
+
+      const img = res.data.data.display_url;
+      if (res.data.success || image === "undefined") {
+        const Info = {
+          publisher,
+          image: img || null,
+          tags,
+          title,
+          article,
+        };
+        axiosP
+          .put(`/editArticles/${id}`, Info)
+          .then(() => {
+            refetch();
+            navigate("/my_articles");
+            setPublishing(false);
+            e.target.reset();
+            toast.success("Successfully Updated!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            setPublishing(false);
+          });
       }
-    );
-
-    const img = res.data.data.display_url;
-
-    if (res.data.success) {
+    } else {
       const Info = {
         publisher,
-        Aemail: user?.email,
-        Aname: user?.displayName,
-        Aimage: user?.photoURL,
-        image: img,
         tags,
-        publish_date: moment(new Date()).format("YYYY-MM-DD h:mm:ss a"),
         title,
         article,
       };
       axiosP
-        .post("/addArticle", Info)
+        .put(`/editArticles/${id}`, Info)
         .then(() => {
+          refetch();
+          navigate("/my_articles");
           setPublishing(false);
           e.target.reset();
-          toast.success("Successfully Inserted!", {
+          toast.success("Successfully Updated!", {
             position: "top-center",
             autoClose: 2000,
             hideProgressBar: false,
@@ -114,8 +148,9 @@ const AddArticles = () => {
         style={{ textShadow: "2px 2px 1px black" }}
         className="mb-5 font-bold text-4xl text-white"
       >
-        Add New Articles
+        Update Your Articles
       </h1>
+      <p className="mb-4">Only edit which one you wanna update.</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] p-8 rounded-lg drop-shadow-2xl"
@@ -131,10 +166,10 @@ const AddArticles = () => {
             <input
               id="title"
               type="text"
+              defaultValue={singleArticle?.title}
               {...register("title")}
               placeholder="article title here"
               className="py-2 px-4 block outline-blue-400   w-full border border-gray-400 rounded-lg text-sm "
-              required
             />
           </div>
           <div>
@@ -147,38 +182,16 @@ const AddArticles = () => {
             <input
               id="image"
               type="file"
-              accept=".png, .jpg, .jpeg, .gif"
-              {...register("image", {
-                required: "image is required!",
-
-                validate: {
-                  lessThan10MB: (files) =>
-                    files[0]?.size < 10000000 || "Max 10MB",
-                  acceptedFormats: (files) =>
-                    [
-                      "image/jpeg",
-                      "image/png",
-                      "image/gif",
-                      "image/jpg",
-                    ].includes(files[0]?.type) || "Only PNG, JPEG, GIF, JPG",
-                },
-              })}
+              {...register("image")}
               placeholder="article title here"
               className="py-2 file:hidden px-4 block outline-blue-400 bg-white text-gray-500  w-full border border-gray-400 rounded-lg text-sm "
-              required
             />
-            {errors.image && (
-              <span className="text-red-800 text-xs">
-                {errors.image.message}
-              </span>
-            )}
           </div>
           <div>
             <label className="block mb-2 text-sm font-medium text-white">
               Tags
             </label>
             <Select
-              required
               styles={customStyles}
               value={selectedTags}
               {...register("tags")}
@@ -195,7 +208,6 @@ const AddArticles = () => {
             <Select
               styles={customStyles}
               value={selectedOption}
-              required
               placeholder="Select a publisher"
               {...register("publisher")}
               name="publisher"
@@ -214,6 +226,7 @@ const AddArticles = () => {
         <textarea
           className="py-3 resize-none outline-blue-400  px-4 block w-full border border-gray-400 mb-6 rounded-lg text-sm "
           rows="3"
+          defaultValue={singleArticle?.article}
           id="article"
           {...register("article")}
           placeholder="write article here"
@@ -237,4 +250,4 @@ const AddArticles = () => {
   );
 };
 
-export default AddArticles;
+export default EditArticles;

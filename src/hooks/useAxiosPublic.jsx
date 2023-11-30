@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosP = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://primepress.netlify.app",
   withCredentials: true,
 });
 const useAxiosPublic = () => {

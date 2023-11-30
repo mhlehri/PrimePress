@@ -3,9 +3,8 @@ import useUsers from "../../hooks/useUsers";
 
 const Stats = () => {
   const { data } = useUsers();
-  console.log(data);
   const premium = data?.filter((pre) => pre?.Premium === true).length;
-  console.log(premium);
+
   return (
     <section className="p-6 my-20 w-3/5 text-center mx-auto bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] rounded-lg text-white  font-black">
       <h1 className="text-center text-3xl mb-2">All Our Members</h1>

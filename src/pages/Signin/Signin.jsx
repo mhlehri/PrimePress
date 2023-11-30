@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 export function SignIn() {
   useEffect(() => {
-    window.document.title = "PrimePress | SingIn";
+    window.document.title = "PrimePress | Sign In";
   }, []);
   const { signIn, signG } = useAuth();
   const [logging, setLogging] = useState(false);
@@ -161,12 +161,10 @@ export function SignIn() {
                       email: res.user.email,
                       img: res.user.photoURL,
                     };
-                    console.log(user);
+
                     axiosP
                       .post("/addUser", user)
-                      .then((res) => {
-                        console.log(res);
-                      })
+                      .then((res) => {})
                       .catch((err) => console.log(err));
                     toast.success(`Successfully Logged In!`, {
                       position: "top-center",
@@ -179,7 +177,7 @@ export function SignIn() {
                       theme: "colored",
                     });
                   })
-                  .catch();
+                  .catch(() => setLogging(false));
               }}
               type="submit"
               className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  rounded-none  bg-transparent text-black hover:text-white hover:bg-black border-black border-2 hover:scale-105  delay-50 ease-linear`}

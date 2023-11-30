@@ -3,12 +3,13 @@ import SideContent from "../../components/SideContent/SideContent";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./../../hooks/useAxiosPublic";
 import useUser from "../../hooks/useUser";
+import Loading from "../../components/Loading/Loading";
 
 const Details = () => {
-  const { data: userInfo } = useUser();
+  const { data: userInfo, isPending: userPending } = useUser();
   const { id } = useParams();
   const axiosP = useAxiosPublic();
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["singleArticle", id, userInfo?.Premium],
     queryFn: async () => {
       const res = await axiosP.get(`/singleArticle/${id}`);
@@ -17,12 +18,17 @@ const Details = () => {
   });
   return (
     <div>
-      {data?.category === "basic" ? (
+      {isPending ? (
+        <div className="text-center">
+          loading...
+          <Loading />
+        </div>
+      ) : data && data?.category === "basic" ? (
         <div className="grid grid-cols-12">
           <div className="col-span-8">
             <div>
               <h5 className="text-3xl font-semibold mb-5">{data?.title}</h5>
-              <img src={data?.image} alt="" />
+              <img width={"100%"} src={data?.image} alt="" />
               <div>
                 <h3 className="text-base mt-4">
                   <span className="font-bold">Author: </span>
@@ -50,7 +56,12 @@ const Details = () => {
             <SideContent />
           </div>
         </div>
-      ) : userInfo?.Premium ? (
+      ) : userPending ? (
+        <div className="text-center">
+          loading...
+          <Loading />
+        </div>
+      ) : userInfo?.Premium || userInfo?.email === data?.Aemail ? (
         <div className="grid grid-cols-12">
           <div className="col-span-8">
             <div>
@@ -58,7 +69,7 @@ const Details = () => {
               <img
                 src={data?.image}
                 className="p-6 bg-orange-300 rounded-lg"
-                alt=""
+                width={"100%"}
               />
               <div>
                 <h3 className="text-base mt-4 text-orange-800">

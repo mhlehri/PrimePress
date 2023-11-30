@@ -36,12 +36,10 @@ const Profile = () => {
     setOpen(false);
   };
 
-  console.log(profile);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const image = e.target.photo.files[0];
-    console.log(name, image);
     if (!image) {
       update(name).then(() => {
         handleClose();
@@ -58,7 +56,6 @@ const Profile = () => {
         axiosS.put(`/updateProfile?email=${user?.email}&name=${name}`);
       });
     } else {
-      console.log(image_hosting_api);
       try {
         const res = await axios.post(
           image_hosting_api,
@@ -89,8 +86,6 @@ const Profile = () => {
             });
           });
         }
-
-        console.log("Image uploaded successfully:", res.data);
       } catch (error) {
         console.error("Error uploading image:", error);
       }

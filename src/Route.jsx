@@ -20,6 +20,7 @@ import AdminRoute from "./AdminRoute";
 import Subscription from "./pages/Subscription/Subscription";
 import PremiumRoute from "./PremiumRoute";
 import Profile from "./pages/Profile/Profile";
+import EditArticles from "./pages/EditArticles/EditArticles";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
       {
         path: "/article/details/:id",
         element: <Details />,
+      },
+      {
+        path: "/article/edit/:id",
+        element: <EditArticles />,
       },
     ],
   },

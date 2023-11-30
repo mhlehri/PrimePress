@@ -23,8 +23,7 @@ export function Charts() {
       return res.data;
     },
   });
-  //   console.log(publishers);
-  //   console.log(publishedArticles);
+
   const data = [["Task", "Hours per Day"]];
   publishers?.map((publishers) => {
     const length = publishedArticles?.filter((articles) => {
@@ -78,8 +77,7 @@ export function BarCharts() {
     ["Basic Users", users?.length - premiumUsers?.length, "#FFCF9D"],
     ["Premium Users", premiumUsers?.length, "#FFB000"],
   ];
-  console.log(premiumUsers?.length);
-  console.log(users);
+
   return (
     <>
       {barLoading ? (

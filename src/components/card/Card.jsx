@@ -4,12 +4,19 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useUser from "../../hooks/useUser";
 
 export const Card = ({ data }) => {
-  const { _id, publisher, category, image, title, article, publish_date } =
-    data;
+  const {
+    _id,
+    publisher,
+    category,
+    image,
+    title,
+    article,
+    publish_date,
+    Aemail,
+  } = data;
   const ar = article.slice(0, 80);
   const axiosP = useAxiosPublic();
   const { data: user } = useUser();
-  console.log(user);
   const navigate = useNavigate();
   const pre = category === "premium";
   return (
@@ -47,7 +54,9 @@ export const Card = ({ data }) => {
 
             {pre ? (
               <Button
-                disabled={user?.Premium ? false : true}
+                disabled={
+                  user?.Premium || user?.email === Aemail ? false : true
+                }
                 onClick={() => {
                   navigate(`/article/details/${_id}`);
                   axiosP.put(`/viewArticle/${_id}`);

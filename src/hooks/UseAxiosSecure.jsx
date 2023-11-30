@@ -2,10 +2,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useAuth from "./useAuth";
-import { useNavigate } from "react-router-dom";
 
 const axiosS = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://primepress.netlify.app",
   withCredentials: true,
 });
 const UseAxiosSecure = () => {
@@ -17,7 +16,6 @@ const UseAxiosSecure = () => {
         return res;
       },
       (err) => {
-        console.log(err, "jamela");
         if (
           err.response?.status === 404 ||
           err.response?.status === 401 ||

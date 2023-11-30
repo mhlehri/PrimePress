@@ -40,7 +40,7 @@ const AllArticles = () => {
   const [search, setSearch] = useState("");
   const getArticles = async (page) => {
     const res = await fetch(
-      `http://localhost:5000/articles?limit=10&page=${page}&tags=${selectedOption.value}&publisher=${selectedOption1.value}&search=${search}`
+      `https://primepress.netlify.app/articles?limit=10&page=${page}&tags=${selectedOption.value}&publisher=${selectedOption1.value}&search=${search}`
     );
     return res.json();
   };
@@ -51,11 +51,10 @@ const AllArticles = () => {
       return lastPage.length == 10 ? pages.length + 1 : undefined;
     },
   });
-  console.log(data);
+
   const articles = data?.pages.reduce((acc, page) => {
     return [...acc, ...page];
   }, []);
-  console.log(articles);
 
   const customStyles = {
     control: (provided, state) => ({

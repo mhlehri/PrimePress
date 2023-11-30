@@ -9,7 +9,7 @@ const Loading = () => {
       wrapperStyle={{ margin: "auto" }}
       wrapperClass="progress-bar-wrapper"
       borderColor="black"
-      barColor="#58bfff"
+      barColor="orange"
     />
   );
 };

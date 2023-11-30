@@ -15,7 +15,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 export function SignUp() {
   useEffect(() => {
-    window.document.title = "PrimePress | SignUp";
+    window.document.title = "PrimePress | Sign Up";
   }, []);
   const axiosP = useAxiosPublic();
   const {
@@ -30,50 +30,12 @@ export function SignUp() {
   const [creating, setCreating] = useState(false);
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    console.log(data);
+
     setCreating(true);
     const name = data.name;
     const image = data.photo[0];
     const email = data.email;
     const password = data.password;
-    console.log(image);
-
-    // if (password.length < 6) {
-    //   return toast.error("Password should be at least 6 character!", {
-    //     position: "top-center",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    // } else if (!password.match(/[A-Z]/)) {
-    //   return toast.error("Password should have at least one UpperCase!", {
-    //     position: "top-center",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    // } else if (
-    //   !password.match(/[!@#\$%\^&\*\(\)\-_\+=\{\}\[\]:;'<>,\.\?/\\\|`~"]/)
-    // ) {
-    //   return toast.error("Password should have at least special Character!", {
-    //     position: "top-center",
-    //     autoClose: 2000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "colored",
-    //   });
-    // } else {
     const res = await axios.post(
       image_hosting_api,
       { image },
@@ -83,7 +45,6 @@ export function SignUp() {
     );
 
     const img = res.data.data.display_url;
-
     if (res.data.success) {
       createUser(email, password)
         .then(() => {
@@ -103,12 +64,9 @@ export function SignUp() {
               signO()
                 .then(() => {
                   const user = { name, email, img };
-                  console.log(user);
                   axiosP
                     .post("/addUser", user)
-                    .then((res) => {
-                      console.log(res);
-                    })
+                    .then(() => {})
                     .catch((err) => console.log(err));
                   navigate("/login");
                   setCreating(false);
@@ -145,7 +103,6 @@ export function SignUp() {
               message: `${er}`,
             });
           }
-          console.log(err.message);
           toast.error(`${err.code}`, {
             position: "top-center",
             autoClose: 2000,
@@ -191,7 +148,21 @@ export function SignUp() {
                     type="file"
                     size="lg"
                     name="photo"
-                    {...register("photo", { required: true })}
+                    {...register("photo", {
+                      required: true,
+                      validate: {
+                        lessThan10MB: (files) =>
+                          files[0]?.size < 10000000 || "Max 10MB",
+                        acceptedFormats: (files) =>
+                          [
+                            "image/jpeg",
+                            "image/png",
+                            "image/gif",
+                            "image/jpg",
+                          ].includes(files[0]?.type) ||
+                          "Only PNG, JPEG, GIF, JPG",
+                      },
+                    })}
                     label="Upload your photo"
                     className="file:hidden  overflow-hidden w-28 underline  cursor-pointer "
                   />
@@ -249,7 +220,7 @@ export function SignUp() {
                   type="password"
                   size="lg"
                   name="password"
-                  {...register("password", {
+                  {...register("image", {
                     required: "password is required!",
                     minLength: {
                       value: 6,
@@ -306,17 +277,14 @@ export function SignUp() {
                   .then((res) => {
                     setCreating(false);
                     navigate("/");
-                    console.log(res.user.displayName);
                     const user = {
                       name: res.user.displayName,
                       email: res.user.email,
                       img: res.user.photoURL,
                     };
-                    console.log(user);
                     axiosP
                       .post("/addUser", user)
-                      .then((res) => {
-                        console.log(res);
+                      .then(() => {
                       })
                       .catch((err) => console.log(err));
 
@@ -331,7 +299,7 @@ export function SignUp() {
                       theme: "colored",
                     });
                   })
-                  .catch();
+                  .catch(() => setCreating(false));
               }}
               type="submit"
               className={`mt-6 w-1/2 mx-auto flex items-center gap-3 justify-center  bg-transparent text-black hover:text-white hover:bg-black border-black rounded-none border-2 hover:scale-105  delay-50 ease-linear`}
