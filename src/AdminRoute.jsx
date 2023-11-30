@@ -8,8 +8,7 @@ const AdminRoute = ({ children }) => {
   if (isPending) {
     return <div>loading...</div>;
   }
-  console.log(user);
-  console.log(admin);
+
   if (isSuccess && user && admin?.role === "admin") {
     return children;
   }
