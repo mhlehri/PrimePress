@@ -1,4 +1,4 @@
-# Assignment 12 -> (PrimePress)
+# Assignment 12 -> (Name: PrimePress)
 
 ## https://primepress.netlify.app
 
