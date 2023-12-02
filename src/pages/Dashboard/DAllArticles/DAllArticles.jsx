@@ -67,7 +67,7 @@ export function Tables() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns?.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -88,7 +88,7 @@ export function Tables() {
             ) : data ? (
               data
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                ?.map((row) => {
                   return (
                     <TableRow
                       hover
@@ -96,7 +96,7 @@ export function Tables() {
                       tabIndex={-1}
                       key={row.code}
                     >
-                      {columns.map((column) => {
+                      {columns?.map((column) => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>

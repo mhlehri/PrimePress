@@ -12,6 +12,7 @@ import { Button } from "@material-tailwind/react";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import Loading from "../../../components/Loading/Loading";
+import { Grid } from "@mui/material";
 
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
@@ -47,132 +48,146 @@ export function Tables() {
   };
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {isPending ? (
-              <TableRow>
-                <TableCell align="center" colSpan={7}>
-                  <Loading />
-                </TableCell>
-              </TableRow>
-            ) : data ? (
-              data
-                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
+    <Grid container spacing={2}>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={8}
+        lg={12}
+        sx={{ mx: "auto", width: "90vw" }}
+      >
+        <Paper sx={{ width: "100%", overflow: "hidden" }}>
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns?.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
                     >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column?.id == "img" ? (
-                              <img width={80} height={80} src={value} />
-                            ) : column.id === "button" ? (
-                              row?.role == "admin" ? (
-                                <Button variant="text" color="orange">
-                                  Admin
-                                </Button>
-                              ) : (
-                                <Button
-                                  onClick={() => {
-                                    Swal.fire({
-                                      title: `Are you sure?`,
-                                      text: `Your are going to add (${row.name}) as admin`,
-                                      color: "teal",
-                                      icon: "question",
-                                      iconColor: "teal",
-                                      background: "#bee6e1",
-                                      showCancelButton: true,
-                                      confirmButtonColor: "teal",
-                                      cancelButtonColor: "#d33",
-                                      confirmButtonText: "Yes! Sure",
-                                    }).then((result) => {
-                                      if (result.isConfirmed) {
-                                        axiosP
-                                          .put(`/admin/${row?._id}`)
-                                          .then(() => {
-                                            refetch();
-                                          });
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {isPending ? (
+                  <TableRow>
+                    <TableCell align="center" colSpan={7}>
+                      <Loading />
+                    </TableCell>
+                  </TableRow>
+                ) : data ? (
+                  data
+                    ?.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    ?.map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.code}
+                        >
+                          {columns?.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column?.id == "img" ? (
+                                  <img width={80} height={80} src={value} />
+                                ) : column.id === "button" ? (
+                                  row?.role == "admin" ? (
+                                    <Button variant="text" color="orange">
+                                      Admin
+                                    </Button>
+                                  ) : (
+                                    <Button
+                                      onClick={() => {
                                         Swal.fire({
-                                          title: "Done!",
-                                          text: `(${row.name}) added successfully as Admin`,
+                                          title: `Are you sure?`,
+                                          text: `Your are going to add (${row.name}) as admin`,
                                           color: "teal",
-                                          confirmButtonColor: "teal",
-                                          icon: "success",
+                                          icon: "question",
                                           iconColor: "teal",
                                           background: "#bee6e1",
+                                          showCancelButton: true,
+                                          confirmButtonColor: "teal",
+                                          cancelButtonColor: "#d33",
+                                          confirmButtonText: "Yes! Sure",
+                                        }).then((result) => {
+                                          if (result.isConfirmed) {
+                                            axiosP
+                                              .put(`/admin/${row?._id}`)
+                                              .then(() => {
+                                                refetch();
+                                              });
+                                            Swal.fire({
+                                              title: "Done!",
+                                              text: `(${row.name}) added successfully as Admin`,
+                                              color: "teal",
+                                              confirmButtonColor: "teal",
+                                              icon: "success",
+                                              iconColor: "teal",
+                                              background: "#bee6e1",
+                                            });
+                                          }
                                         });
-                                      }
-                                    });
-                                  }}
-                                  variant="gradient"
-                                  color="teal"
-                                >
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth={1.5}
-                                    stroke="currentColor"
-                                    className="w-4 h-4"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                                    />
-                                  </svg>
-                                </Button>
-                              )
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} align="center">
-                  No Data Available
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data?.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+                                      }}
+                                      variant="gradient"
+                                      color="teal"
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="w-4 h-4"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+                                        />
+                                      </svg>
+                                    </Button>
+                                  )
+                                ) : (
+                                  value
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={7} align="center">
+                      No Data Available
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
 

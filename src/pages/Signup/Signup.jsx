@@ -71,7 +71,9 @@ export function SignUp() {
                   navigate("/login");
                   setCreating(false);
                 })
-                .catch()
+                .catch(() => {
+                  setCreating(false);
+                })
             )
             .catch((err) => {
               if (err) {
@@ -90,6 +92,7 @@ export function SignUp() {
             });
         })
         .catch((err) => {
+          setCreating(false);
           const error = err.code;
           if (error === "auth/email-already-in-use") {
             setError("email", {
@@ -220,7 +223,7 @@ export function SignUp() {
                   type="password"
                   size="lg"
                   name="password"
-                  {...register("image", {
+                  {...register("password", {
                     required: "password is required!",
                     minLength: {
                       value: 6,
@@ -284,9 +287,11 @@ export function SignUp() {
                     };
                     axiosP
                       .post("/addUser", user)
-                      .then(() => {
-                      })
-                      .catch((err) => console.log(err));
+                      .then(() => {})
+                      .catch((err) => {
+                        setCreating(false);
+                        console.log(err);
+                      });
 
                     toast.success(`Successfully Logged In!`, {
                       position: "top-center",

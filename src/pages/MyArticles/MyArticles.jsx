@@ -47,7 +47,7 @@ export function Tables() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const axiosS = UseAxiosSecure();
   const axiosP = useAxiosPublic();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { data, isPending, refetch } = useQuery({
     queryKey: ["myArticles", user?.email],
@@ -72,7 +72,7 @@ export function Tables() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
+              {columns?.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -90,10 +90,15 @@ export function Tables() {
                   <Loading />
                 </TableCell>
               </TableRow>
-            ) : user && data.length ? (
+            ) : loading ? (
+              <div className="text-center">
+                loading...
+                <Loading />
+              </div>
+            ) : user && data?.length > 0 ? (
               data
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, i) => {
+                ?.map((row, i) => {
                   return (
                     <TableRow
                       hover
@@ -101,7 +106,7 @@ export function Tables() {
                       tabIndex={-1}
                       key={row.code}
                     >
-                      {columns.map((column) => {
+                      {columns?.map((column) => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>

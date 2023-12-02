@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import useAuth from "./useAuth";
 
 const axiosS = axios.create({
-  baseURL: "https://primepress.netlify.app",
+  baseURL: "https://server12-two.vercel.app",
   withCredentials: true,
 });
 const UseAxiosSecure = () => {

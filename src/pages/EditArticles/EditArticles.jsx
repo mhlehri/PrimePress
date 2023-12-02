@@ -38,7 +38,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const EditArticles = () => {
   useEffect(() => {
-    window.document.title = "PrimePress | Add Articles";
+    window.document.title = "PrimePress | edit Articles";
   }, []);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -64,26 +64,33 @@ const EditArticles = () => {
   const onSubmit = async (data, e) => {
     e.preventDefault();
     setPublishing(true);
-    const image = data.image[0];
-    const title = data.title;
-    const article = data.article;
+    const image = data?.image[0];
+    const title = data?.title;
+    const article = data?.article;
     let publisher = e.target.publisher.value;
     let tags = e.target.tag.value;
+    console.log("72", image);
 
-    if (image !== "undefined") {
-      const res = await axios.post(
-        image_hosting_api,
-        { image },
-        {
-          headers: { "content-type": "multipart/form-data" },
-        }
-      );
+    if (image !== undefined || image !== "") {
+      const res = await axios
+        .post(
+          image_hosting_api,
+          { image },
+          {
+            headers: { "content-type": "multipart/form-data" },
+          }
+        )
+        .catch((err) => {
+          setPublishing(false);
+          console.log(err);
+        });
 
-      const img = res.data.data.display_url;
-      if (res.data.success || image === "undefined") {
+      const img = res?.data?.data.display_url;
+      console.log("imag", img);
+      if (res?.data?.success || image === undefined) {
         const Info = {
           publisher,
-          image: img || null,
+          image: img,
           tags,
           title,
           article,
@@ -91,6 +98,7 @@ const EditArticles = () => {
         axiosP
           .put(`/editArticles/${id}`, Info)
           .then(() => {
+            console.log("101");
             refetch();
             navigate("/my_articles");
             setPublishing(false);
@@ -107,20 +115,22 @@ const EditArticles = () => {
             });
           })
           .catch((err) => {
+            console.log("118");
             console.log(err);
             setPublishing(false);
           });
       }
     } else {
-      const Info = {
+      const Infox = {
         publisher,
         tags,
         title,
         article,
       };
       axiosP
-        .put(`/editArticles/${id}`, Info)
+        .put(`/editArticles/${id}`, Infox)
         .then(() => {
+          console.log("133");
           refetch();
           navigate("/my_articles");
           setPublishing(false);
@@ -136,7 +146,8 @@ const EditArticles = () => {
             theme: "colored",
           });
         })
-        .catch((err) => {
+        .catch(() => {
+          console.log(`150`);
           setPublishing(false);
         });
     }

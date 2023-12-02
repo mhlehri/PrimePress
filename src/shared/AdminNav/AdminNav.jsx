@@ -38,7 +38,7 @@ function AdminNav() {
       <Toolbar />
 
       <List>
-        {["Dashboard", "All Users", "All Articles", "Add Publisher"].map(
+        {["Dashboard", "All Users", "All Articles", "Add Publisher"]?.map(
           (text, index) => (
             <Link
               key={index}

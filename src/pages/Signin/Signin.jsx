@@ -62,16 +62,6 @@ export function SignIn() {
             message: `${er}`,
           });
         }
-        // toast.error(`${err.message}`, {
-        //   position: "top-center",
-        //   autoClose: 3000,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        //   progress: undefined,
-        //   theme: "colored",
-        // });
       });
   };
   return (
@@ -164,8 +154,12 @@ export function SignIn() {
 
                     axiosP
                       .post("/addUser", user)
-                      .then((res) => {})
-                      .catch((err) => console.log(err));
+                      .then(() => {
+                        setLogging(false);
+                      })
+                      .catch(() => {
+                        setLogging(false);
+                      });
                     toast.success(`Successfully Logged In!`, {
                       position: "top-center",
                       autoClose: 1500,

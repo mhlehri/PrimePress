@@ -39,7 +39,7 @@ function NavListMenu() {
   const { user } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const renderItems = navListMenuItems.map(({ title }, key) => (
+  const renderItems = navListMenuItems?.map(({ title }, key) => (
     <NavLink
       to={`/${title}`}
       key={key}
@@ -290,7 +290,7 @@ export function NavbarWithMegaMenu() {
                   </Button>
                 </MenuHandler>
                 <MenuList className="p-0 ">
-                  {profileMenuItems.map(({ label }) => {
+                  {profileMenuItems?.map(({ label }) => {
                     return (
                       <div
                         key={label}
@@ -323,14 +323,16 @@ export function NavbarWithMegaMenu() {
         </div>
         <Collapse open={openNav}>
           <NavList />
-          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+          <div className="flex w-full flex-nowrap items-center justify-center mb-2 gap-2 lg:hidden">
             {user ? (
               <div className="flex gap-1 items-center">
-                <img
-                  src={user.photoURL}
-                  className="w-[40px] h-[40px] rounded-full"
-                  alt=""
-                />{" "}
+                <Link to={`/profile/${user?.displayName}`}>
+                  <img
+                    src={user.photoURL}
+                    className="w-[40px] h-[40px] rounded-full"
+                    alt=""
+                  />
+                </Link>
                 <p>{user.displayName}</p>
                 <Link>
                   <Button

@@ -4,8 +4,8 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button,
   Input,
+  Button,
 } from "@material-tailwind/react";
 import UseAxiosSecure from "../../hooks/UseAxiosSecure";
 import * as React from "react";
@@ -15,8 +15,9 @@ import DialogContent from "@mui/material/DialogContent";
 import useAuth from "./../../hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
-import useUser from "../../hooks/useUser";
 import { useEffect } from "react";
+import { useState } from "react";
+import Loading from "../../components/Loading/Loading";
 
 const Profile = () => {
   const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -25,8 +26,8 @@ const Profile = () => {
     window.document.title = "PrimePress | Profile";
   }, []);
   const { user, update } = useAuth();
+  const [updating, setUpdating] = useState(false);
   const axiosS = UseAxiosSecure();
-  const { profile, isPending } = useUser();
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,6 +39,7 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setUpdating(true);
     const name = e.target.name.value;
     const image = e.target.photo.files[0];
     if (!image) {
@@ -53,7 +55,11 @@ const Profile = () => {
           progress: undefined,
           theme: "colored",
         });
-        axiosS.put(`/updateProfile?email=${user?.email}&name=${name}`);
+        axiosS
+          .put(`/updateProfile?email=${user?.email}&name=${name}`)
+          .then(() => {
+            setUpdating(false);
+          });
       });
     } else {
       try {
@@ -70,9 +76,13 @@ const Profile = () => {
         if (res.data.success) {
           update(name, img).then(() => {
             handleClose();
-            axiosS.put(
-              `/updateProfile?email=${user?.email}&name=${name}&image=${img}`
-            );
+            axiosS
+              .put(
+                `/updateProfile?email=${user?.email}&name=${name}&image=${img}`
+              )
+              .then(() => {
+                setUpdating(false);
+              });
 
             toast.success("Successfully Updated!", {
               position: "top-center",
@@ -87,6 +97,7 @@ const Profile = () => {
           });
         }
       } catch (error) {
+        setUpdating(false);
         console.error("Error uploading image:", error);
       }
     }
@@ -192,10 +203,24 @@ const Profile = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Button type="submit" autoFocus>
-                        Update
+                      {updating ? (
+                        <Button
+                          className={`mx-auto flex items-center gap-3   justify-center text-black  bg-transparent   rounded-none  outline outline-2 outline-black   hover:scale-105 py-0 `}
+                        >
+                          <Loading />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="submit"
+                          className={`mx-auto flex items-center gap-3  hover:bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] justify-center   bg-transparent   rounded-none  outline outline-2 outline-black hover:outline-none hover:text-white text-black   hover:scale-105  `}
+                          autoFocus
+                        >
+                          Update
+                        </Button>
+                      )}
+                      <Button className="rounded-none" onClick={handleClose}>
+                        Close
                       </Button>
-                      <Button onClick={handleClose}>Close</Button>
                     </DialogActions>
                   </form>
                 </Card>

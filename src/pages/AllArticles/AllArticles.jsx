@@ -40,7 +40,7 @@ const AllArticles = () => {
   const [search, setSearch] = useState("");
   const getArticles = async (page) => {
     const res = await fetch(
-      `https://primepress.netlify.app/articles?limit=10&page=${page}&tags=${selectedOption.value}&publisher=${selectedOption1.value}&search=${search}`
+      `https://server12-two.vercel.app/articles?limit=10&page=${page}&tags=${selectedOption.value}&publisher=${selectedOption1.value}&search=${search}`
     );
     return res.json();
   };

@@ -131,7 +131,7 @@ export function AreaChart() {
   });
   const status = ["pending", "declined", "approved"];
   const AreaData = [["status", "Total"]];
-  status.map((status) => {
+  status?.map((status) => {
     const length = articlesStatus?.filter((s) => {
       if (s?.status == status) {
         return s;
