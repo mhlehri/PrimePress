@@ -4,13 +4,13 @@
 
 #### server-side repo link: <a href="https://github.com/mhlehri/PrimePress-server">Server Repo🔗</a>
 
-#### Teachs used:
+#### 🖥️ Teachs used:
 
 <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=tailwind,react,express,mongodb,firebase" />
+    <img src="https://skillicons.dev/icons?i=tailwind,react,express,mongodb,firebase,mui" />
   </a>
 
-#### Projects features.
+#### 🧩 Projects features.
 
 - On the home page there are 6 trending articles and recent 2 articles, there are also our all publishers, users' statistics, plan, stay connected, and listen to our podcast section.
 
