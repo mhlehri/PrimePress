@@ -1,7 +1,14 @@
 # Name: PrimePress
 
-## Live Link: https://primepress.netlify.app
-#### server-side link: https://github.com/mhlehri/PrimePress-server
+## Live Link: <a href="https://primepress.netlify.app">PrimePress🔗</a>
+
+#### server-side repo link: <a href="https://github.com/mhlehri/PrimePress-server">Server Repo🔗</a>
+
+#### Teachs used:
+
+<a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=tailwind,react,express,mongodb,firebase" />
+  </a>
 
 #### Projects features.
 
