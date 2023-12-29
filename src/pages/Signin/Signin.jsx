@@ -25,7 +25,6 @@ export function SignIn() {
   const onSubmit = (data, e) => {
     e.preventDefault();
     setLogging(true);
-    // const form = e.target;
     const email = data.email;
     const password = data.password;
     const user = { email, password };
@@ -79,6 +78,7 @@ export function SignIn() {
                 <Input
                   type="email"
                   size="lg"
+                  defaultValue="demo@gmail.com"
                   name="email"
                   {...register("email", {
                     required: "Email is required",
@@ -102,6 +102,7 @@ export function SignIn() {
                   type="password"
                   size="lg"
                   name="password"
+                  defaultValue="12345A@"
                   {...register("password", {
                     required: "password is required!",
                   })}

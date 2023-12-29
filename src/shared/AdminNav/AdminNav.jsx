@@ -1,18 +1,14 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -21,12 +17,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
 import VerticalSplitIcon from "@mui/icons-material/VerticalSplit";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import HourglassTopIcon from "@mui/icons-material/HourglassTop";
-
+import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
 
 function AdminNav() {
-  //   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -38,36 +32,41 @@ function AdminNav() {
       <Toolbar />
 
       <List>
-        {["Dashboard", "All Users", "All Articles", "Add Publisher"]?.map(
-          (text, index) => (
-            <Link
-              key={index}
-              className="flex"
-              to={`/dashboard${
-                text === "Dashboard" ? "" : `/${text.toLowerCase()}`
-              }`}
-            >
-              <ListItem disablePadding>
-                <ListItemButton sx={{ color: "black" }}>
-                  <ListItemIcon sx={{ color: "black" }}>
-                    {(index === 0 && <DashboardIcon />) ||
-                      (index === 1 && <GroupIcon />) ||
-                      (index === 2 && <VerticalSplitIcon />) ||
-                      (index === 3 && <PersonAddAlt1Icon />)}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          )
-        )}
+        {[
+          "Dashboard",
+          "All Users",
+          "All Articles",
+          "Add Publisher",
+          "Home",
+        ]?.map((text, index) => (
+          <Link
+            key={index}
+            className="flex"
+            to={`${
+              text === "Home"
+                ? "/"
+                : `/dashboard${
+                    text === "Dashboard" ? "" : `/${text.toLowerCase()}`
+                  }`
+            }`}
+          >
+            <ListItem disablePadding>
+              <ListItemButton sx={{ color: "black" }}>
+                <ListItemIcon sx={{ color: "black" }}>
+                  {(index === 0 && <DashboardIcon />) ||
+                    (index === 1 && <GroupIcon />) ||
+                    (index === 2 && <VerticalSplitIcon />) ||
+                    (index === 3 && <PersonAddAlt1Icon />) ||
+                    (index === 4 && <HomeIcon />)}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        ))}
       </List>
     </div>
   );
-
-  // Remove this const when copying and pasting into your project.
-  //   const container =
-  //     window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex", color: "black" }}>

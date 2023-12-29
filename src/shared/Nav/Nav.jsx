@@ -117,18 +117,6 @@ function NavList() {
           Home
         </a>
       </NavLink>
-      {user && (
-        <NavLink
-          to="/add_articles"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "overline  font-bold" : ""
-          }
-        >
-          <a className="flex items-center  py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
-            Add Articles
-          </a>
-        </NavLink>
-      )}
       <NavLink
         to="/articles"
         className={({ isActive, isPending }) =>
@@ -140,15 +128,15 @@ function NavList() {
         </a>
       </NavLink>
 
-      {user && userData?.role === "admin" && (
+      {user && userData?.Premium && (
         <NavLink
-          to="/dashboard"
+          to="/premium_articles"
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "overline  font-bold" : ""
           }
         >
           <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-            Dashboard
+            Premium Articles
           </a>
         </NavLink>
       )}
@@ -161,6 +149,18 @@ function NavList() {
         >
           <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
             Subscription
+          </a>
+        </NavLink>
+      )}
+      {user && (
+        <NavLink
+          to="/add_articles"
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "overline  font-bold" : ""
+          }
+        >
+          <a className="flex items-center  py-1 px-1 hover:bg-gray-800 hover:text-white rounded-lg">
+            Add Articles
           </a>
         </NavLink>
       )}
@@ -177,15 +177,15 @@ function NavList() {
           </a>
         </NavLink>
       )}
-      {user && userData?.Premium && (
+      {user && userData?.role === "admin" && (
         <NavLink
-          to="/premium_articles"
+          to="/dashboard"
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "overline  font-bold" : ""
           }
         >
           <a className="flex items-center hover:bg-gray-800 hover:text-white rounded-lg py-1 px-1">
-            Premium Articles
+            Dashboard
           </a>
         </NavLink>
       )}
