@@ -9,7 +9,7 @@ export default function BioCard() {
   const { data } = useAllPublishers();
   return (
     <div>
-      <div className="my-10 w-2/3 lg:w-1/2 mx-auto text-center">
+      <div className="my-10 lg:w-1/2 mx-auto text-center">
         <h1 className="text-3xl font-bold">All Our Publishers</h1>
         <p className="opacity-70">
           Discover the Minds Behind the Stories: Unveiling the Brilliance of Our

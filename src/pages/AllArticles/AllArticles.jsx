@@ -24,7 +24,7 @@ const AllArticles = () => {
     window.document.title = "PrimePress | All Articles";
   }, []);
   const { data: publishers } = useAllPublishers();
-  const options1 = [{ value: "", label: "All Publisers" }];
+  const options1 = [{ value: "", label: "All Publishers" }];
   publishers?.map((p) => {
     options1.push({ value: p.publisher, label: p.publisher });
   });
@@ -84,9 +84,9 @@ const AllArticles = () => {
   };
 
   return (
-    <div>
-      <div className="my-12 grid grid-cols-3">
-        <div className="grid grid-cols-2 gap-2">
+    <>
+      <div className="my-12 grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <Select
             styles={customStyles}
             value={selectedOption}
@@ -108,7 +108,7 @@ const AllArticles = () => {
         <Search handleSubmit={handleSubmit} />{" "}
       </div>
       {isPending ? (
-        <div className="grid grid-cols-2 gap-5 my-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-20">
           <Skeleton />
           <Skeleton />
         </div>
@@ -118,14 +118,14 @@ const AllArticles = () => {
           next={() => fetchNextPage()}
           hasMore={hasNextPage}
           loader={
-            <div className="grid grid-cols-2 gap-5 my-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-20">
               <Skeleton />
               <Skeleton />
             </div>
           }
         >
           <div className="mb-16">
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
               {articles?.map((data, inx) => {
                 return <Card data={data} key={inx}></Card>;
               })}
@@ -142,7 +142,7 @@ const AllArticles = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -20,16 +20,16 @@ export const Card = ({ data }) => {
   const navigate = useNavigate();
   const pre = category === "premium";
   return (
-    <div className=" sm:flex">
-      <div className="relative overflow-hidden pt-[40%] md:max-w-xs w-1/2">
+    <div className="flex flex-col md:flex-row">
+      <div className="relative overflow-hidden pt-[40%] w-full md:max-w-xs lg:w-1/2 h-full">
         <img
-          className="w-full h-full hover:scale-110 delay-100 duration-150   ease-linear bg-fixed absolute top-0 start-0 object-cover"
+          className="w-full h-56 md:h-full hover:scale-110 delay-100 duration-150   ease-linear bg-fixed absolute top-0 start-0 object-cover"
           src={image}
           alt="Image Description"
         />
       </div>
       <div
-        className={`flex flex-wrap hover:shadow-md w-2/3 ${
+        className={`flex flex-wrap hover:shadow-md md:w-2/3 ${
           pre
             ? "bg-[url('https://i.ibb.co/16Gbn4F/Animation-1701275148102.gif')]  bg-no-repeat bg-contain bg-center"
             : ""
@@ -47,10 +47,10 @@ export const Card = ({ data }) => {
           >
             {title}
           </h3>
-          <p className="mt-1  text-sm">{ar}</p>
-          <div className="mt-5 sm:mt-auto">
-            <p className="text-xs font-bold  mt-2">{publisher}</p>
-            <p className="text-xs  mb-2 ">{publish_date}</p>
+          <p className="mt-1 text-sm">{ar}</p>
+          <div className="mt-1 lg:mt-5 sm:mt-auto">
+            <p className="text-xs font-bol mt-2">{publisher}</p>
+            <p className="text-xs mb-2 ">{publish_date}</p>
 
             {pre ? (
               <Button

@@ -8,8 +8,8 @@ const Subscription = () => {
   }, []);
   return (
     <div className="drop-shadow-lg">
-      <div className="flex items-center justify-center gap-6 shadow-xl rounded-lg py-3">
-        <div className="w-1/2 space-y-4">
+      <div className="flex items-center justify-center gap-6 shadow-xl rounded-lg py-5">
+        <div className="lg:w-1/2 space-y-4">
           <h1 className="text-2xl font-black opacity-80 text-center">
             <Typewriter
               loop
@@ -23,7 +23,7 @@ const Subscription = () => {
               ]}
             />
           </h1>
-          <p className="w-4/5 opacity-70 mx-auto text-center">
+          <p className="lg:w-4/5 opacity-70 mx-auto text-center">
             Subscribe to Premium Articles for Deeper Analysis, In Depth Stories,
             and Unfiltered Perspectives. Elevate Your News Experience Today
           </p>

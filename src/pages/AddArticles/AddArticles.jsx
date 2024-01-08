@@ -109,7 +109,7 @@ const AddArticles = () => {
   };
 
   return (
-    <div className="text-black w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
+    <div className="text-black lg:w-2/4  mx-auto h-[80vh] flex items-center justify-center flex-col ">
       <h1
         style={{ textShadow: "2px 2px 1px black" }}
         className="mb-5 font-bold text-4xl text-white"
@@ -196,7 +196,7 @@ const AddArticles = () => {
               styles={customStyles}
               value={selectedOption}
               required
-              placeholder="Select a publisher"
+              placeholder="Select publisher"
               {...register("publisher")}
               name="publisher"
               onChange={setSelectedOption}

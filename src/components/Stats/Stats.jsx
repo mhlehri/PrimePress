@@ -6,9 +6,9 @@ const Stats = () => {
   const premium = data?.filter((pre) => pre?.Premium === true).length;
 
   return (
-    <section className="p-6 my-20 w-3/5 text-center mx-auto bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] rounded-lg text-white  font-black">
+    <section className="p-6 my-20 lg:w-3/5 text-center mx-auto bg-gradient-to-tr from-[#58bfff]  to-[#01bea5] rounded-lg text-white  font-black">
       <h1 className="text-center text-3xl mb-2">All Our Members</h1>
-      <div className="container mx-auto grid justify-center text-center sm:grid-cols-3">
+      <div className="container mx-auto grid justify-center text-center grid-cols-3">
         <div className="flex flex-col justify-start m-2 lg:m-6 drop-shadow-2xl">
           <p className="text-4xl font-bold  lg:text-6xl">
             <CountUp end={data?.length} duration={15} />
